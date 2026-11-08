@@ -1,0 +1,8 @@
+# C27: dev-weighted ensemble of the dev-cross-fitted members (C25, C26, C23, C20, C21, C22; each honest out-of-fold on all
+# 3.5k dev cases); member weights and threshold tuned on dev.
+base: c9_ens.yaml
+id: C27
+name: cj_ens_dcv4
+ens:
+  runs: [runs/cj/cj_gpt_full_dcv4, runs/cj/cj_hyb_full_dcv4, runs/cj/cj_gpt_full_dcv, runs/cj/cj_hyb_adapter_dcv,
+         runs/cj/cj_gpt_lorma_dcv, runs/cj/cj_gpt_partial_dcv]

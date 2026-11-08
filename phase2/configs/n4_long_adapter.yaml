@@ -1,0 +1,14 @@
+# N4: LongLegal (L1), Houlsby bottleneck adapters (64) after every attention and FFN sublayer, 2048-token
+# windows, local layers made symmetric (|i - j| < 512) and global layers fully bidirectional, BIO token head.
+base: base.yaml
+id: N4
+name: ner_long_adapter
+ner:
+  backbone: {config: phase1/configs/longlegal.yaml, run: runs/longlegal, ckpt: best}
+  method: adapter
+  bottleneck: 64
+  unmask: all
+  window: 2048
+  stride: 512
+  batch: 4
+  lr: 1.0e-3

@@ -1,0 +1,17 @@
+# Frozen Phase-1 sentence features for the document-level taggers (python rr.py phase3/configs/feats.yaml feats).
+# Every backbone is one of our own Phase-1 checkpoints, run causally (as pretrained) or, for LegalSeq, its encoder.
+base: base.yaml
+id: F
+name: rr_feats
+feats:
+  out: runs/rr/feats
+  maxsent: 128
+  depths: [0.5, 0.75, 1.0]       # mean sentence state at these fractions of the depth, concatenated
+  backbones:
+    - {name: s1, config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last, window: 1024}
+    - {name: s3, config: phase1/configs/legalhybrid_sc2.yaml, run: runs/legalhybrid_sc2, ckpt: last, window: 1024}
+    - {name: l1, config: phase1/configs/longlegal.yaml, run: runs/longlegal, ckpt: best, window: 2048}
+    - {name: q1, config: phase1/configs/legalseq.yaml, run: runs/legalseq, ckpt: best, window: 1024}
+    - {name: g1, config: phase1/configs/legalgpt.yaml, run: runs/legalgpt, ckpt: best, window: 1024}
+    - {name: h1, config: phase1/configs/legalhybrid.yaml, run: runs/legalhybrid, ckpt: best, window: 1024}
+    - {name: z3, config: phase1/configs/legalgpt_sc.yaml, run: runs/selfrank_dpo, ckpt: best, window: 1024}

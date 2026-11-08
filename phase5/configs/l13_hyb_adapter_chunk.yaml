@@ -1,0 +1,10 @@
+# L13: lsi_hyb_adapter (already trained) re-scored with chunk-level predictions + document-level aggregation: consecutive windows from
+# the start of the document (up to 3), per-statute max over chunks (PS 11.1); per-statute thresholds re-tuned on dev.
+base: l2_hyb_adapter.yaml
+id: L13
+name: lsi_hyb_adapter_chunk
+lsi:
+  fromrun: lsi_hyb_adapter
+  chunks: 3
+  agg: max
+  trainprobs: false

@@ -1,0 +1,9 @@
+# S6: LegalGPT-SC + AdaLoRA (SVD-form updates, rank 12 -> average 4 by importance, orthogonality penalty 0.1).
+base: base.yaml
+id: S6
+name: sm_gpt_adalora
+sm:
+  method: adalora
+  rank0: 12
+  target: 4
+  alpha: 16

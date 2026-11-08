@@ -1,0 +1,7 @@
+# Ablation control: LegalGPT (RoPE, GQA 12/4) at the shared ablation budget of 0.5B tokens.
+base: legalgpt.yaml
+id: A1
+name: gpt_rope_s
+train:
+  tokens: 5.0e+8
+  warmup: 150

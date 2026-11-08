@@ -1,0 +1,16 @@
+# L19: stacked binary relevance with label correlations: an MLP over all members' probabilities for all 100 statutes
+# (residual on the mean member logit), 5-fold cross-fitted on dev; per-statute thresholds on the out-of-fold dev scores.
+base: base.yaml
+id: L19
+name: lsi_stack
+stack:
+  runs: [runs/lsi/lsi_gpt_full_chunk, runs/lsi/lsi_hyb_adapter_chunk, runs/lsi/lsi_kd_student_chunk, runs/lsi/lsi_gpt_lorma_chunk,
+         runs/lsi/lsi_long_qlora_chunk, runs/lsi/lsi_gpt_partial_chunk, runs/lsi/lsi_gpt_full, runs/lsi/lsi_hyb_adapter,
+         runs/lsi/lsi_kd_student, runs/lsi/lsi_gpt_lorma, runs/lsi/lsi_long_qlora, runs/lsi/lsi_gpt_partial]
+  folds: 5
+  hid: 512
+  indrop: 0.2
+  drop: 0.3
+  lr: 1.0e-3
+  wd: 1.0e-2
+  epochs: 20

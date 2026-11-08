@@ -1,0 +1,13 @@
+# R4: LegalSeq (Q1) encoder (natively bidirectional) + AdaLoRA (Zhang et al. 2023): SVD-form updates starting at rank
+# 12 per projection, importance-based budget pruning to an average rank of 4, orthogonality penalty 0.1.
+base: base.yaml
+id: R4
+name: rr_seq_adalora
+rr:
+  backbone: {config: phase1/configs/legalseq.yaml, run: runs/legalseq, ckpt: best}
+  method: adalora
+  rank0: 12
+  target: 4
+  alpha: 16
+  orth: 0.1
+  lr: 5.0e-4

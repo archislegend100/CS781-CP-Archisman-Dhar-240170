@@ -1,0 +1,8 @@
+# R27: R25 with stronger regularisation of the sparse channel (df >= 3, word dropout 0.35) and 5 seeds per fold.
+base: r25_cv_sparse.yaml
+id: R27
+name: rr_cv_sparse_reg
+seq:
+  mindf: 3
+  wdrop: 0.35
+  seeds: [1, 2, 3, 4, 5]

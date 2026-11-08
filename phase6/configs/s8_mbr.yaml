@@ -1,0 +1,7 @@
+# S8: document-level minimum-Bayes-risk selection over the summaries of S1-S7 (consensus candidate by ROUGE-1 + ROUGE-L).
+base: base.yaml
+id: S8
+name: sm_mbr
+ens:
+  runs: [runs/sm/sm_gpt_lorma, runs/sm/sm_hyb_houlsby, runs/sm/sm_long_qlora, runs/sm/sm_seq_lora, runs/sm/sm_gpt_pfeiffer,
+         runs/sm/sm_gpt_adalora, runs/sm/sm_kd_student]

@@ -1,0 +1,6 @@
+# C26: C25's recipe with LegalHybrid-SC (S3) fully fine-tuned (S3 adapted best among the PEFT runs, C20).
+base: base.yaml
+id: C26
+name: cj_hyb_full_dcv4
+devjoin:
+  runs: [runs/cj/cj_hyb_full_dcv4_df0, runs/cj/cj_hyb_full_dcv4_df1, runs/cj/cj_hyb_full_dcv4_df2, runs/cj/cj_hyb_full_dcv4_df3]

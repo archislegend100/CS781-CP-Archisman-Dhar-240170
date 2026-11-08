@@ -1,0 +1,6 @@
+# Position ablation: identical to gpt_rope_s except ALiBi replaces RoPE (both parameter-free).
+base: gpt_rope_s.yaml
+id: A2
+name: gpt_alibi_s
+model:
+  pos: alibi

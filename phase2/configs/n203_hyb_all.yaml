@@ -1,0 +1,6 @@
+# N20 member: N3's hybrid LoRA setup refit on all 70 training docs (epoch count = mean best epoch of the fold runs).
+base: n3_hyb_lora.yaml
+id: N203
+name: ner_hyb_lora_all
+ner:
+  valdocs: 0

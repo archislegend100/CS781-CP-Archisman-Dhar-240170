@@ -1,0 +1,8 @@
+# C5: LegalGPT-SC (S1) full fine-tuning, last 2048 tokens (reference for PEFT vs full adaptation).
+base: base.yaml
+id: C5
+name: cj_gpt_full
+cj:
+  method: full
+  lr: 2.0e-5
+  ckpt: true

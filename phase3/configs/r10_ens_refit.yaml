@@ -1,0 +1,8 @@
+# R10: the best R8 members refit on train + dev (fixed epoch count = their best dev epoch), ensembled with R8's dev-tuned
+# biases and transition scale (members are set by phase3/run.sh: the top single models by dev F1) + the KD student.
+base: base.yaml
+id: R10
+name: rr_ens_refit
+ens:
+  runs: []
+  biasfrom: submissions/R8_rr_ens/meta.json

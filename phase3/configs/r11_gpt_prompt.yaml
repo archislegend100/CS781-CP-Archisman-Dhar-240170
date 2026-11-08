@@ -1,0 +1,9 @@
+# R11 (extra): LegalGPT-SC (S1) + prompt tuning (Lester et al. 2021), 32 soft tokens, backbone frozen.
+base: base.yaml
+id: R11
+name: rr_gpt_prompt
+rr:
+  method: prompt
+  prompt: 32
+  lr: 5.0e-4
+  headlr: 5.0e-3

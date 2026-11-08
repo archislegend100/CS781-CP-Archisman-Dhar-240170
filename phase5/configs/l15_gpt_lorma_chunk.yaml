@@ -1,0 +1,10 @@
+# L15: lsi_gpt_lorma (already trained) re-scored with chunk-level predictions + document-level aggregation: consecutive windows from
+# the start of the document (up to 3), per-statute max over chunks (PS 11.1); per-statute thresholds re-tuned on dev.
+base: l1_gpt_lorma.yaml
+id: L15
+name: lsi_gpt_lorma_chunk
+lsi:
+  fromrun: lsi_gpt_lorma
+  chunks: 3
+  agg: max
+  trainprobs: false

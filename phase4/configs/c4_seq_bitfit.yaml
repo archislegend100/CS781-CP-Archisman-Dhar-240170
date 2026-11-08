@@ -1,0 +1,12 @@
+# C4: LegalSeq (Q1) encoder + BitFit (Ben Zaken et al. 2022): zero-initialised biases on every projection + RMSNorm gains
+# are the only backbone parameters trained; last 1024 tokens (the encoder was pretrained on 1280-token prefixes).
+base: base.yaml
+id: C4
+name: cj_seq_bitfit
+cj:
+  backbone: {config: phase1/configs/legalseq.yaml, run: runs/legalseq, ckpt: best}
+  method: bitfit
+  window: 1024
+  batch: 8
+  accum: 2
+  lr: 1.0e-3

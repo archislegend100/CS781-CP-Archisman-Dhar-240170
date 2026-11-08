@@ -1,0 +1,7 @@
+# W1: S2 with averaged late checkpoints (run avgckpt.py first, which writes runs/legalhybrid_sc/ckpt/avg.pt).
+base: legalhybrid_sc.yaml
+id: W1
+subname: s2_avg
+notrain: true
+generation:
+  ckpt: avg

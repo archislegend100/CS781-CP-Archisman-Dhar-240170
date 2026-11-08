@@ -1,0 +1,9 @@
+# L7: LegalGPT-SC (S1) + prompt tuning (Lester et al. 2021): 32 soft tokens, frozen backbone, label-wise attention head.
+base: base.yaml
+id: L7
+name: lsi_gpt_prompt
+lsi:
+  method: prompt
+  prompt: 32
+  lr: 5.0e-4
+  headlr: 3.0e-3

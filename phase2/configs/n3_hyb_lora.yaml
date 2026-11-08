@@ -1,0 +1,12 @@
+# N3: LegalHybrid (S3), LoRA r=16 (alpha 32) on attention/FFN/Hyena projections, attention layers unmasked
+# (Hyena mixers stay causal), BIO token head.
+base: base.yaml
+id: N3
+name: ner_hyb_lora
+ner:
+  backbone: {config: phase1/configs/legalhybrid_sc2.yaml, run: runs/legalhybrid_sc2, ckpt: last}
+  method: lora
+  rank: 16
+  alpha: 32
+  unmask: all
+  lr: 5.0e-4

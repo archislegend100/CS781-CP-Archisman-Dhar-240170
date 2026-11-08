@@ -1,0 +1,12 @@
+# P12: cross-fitted listwise learning-to-rank over P9's signals (per view: z-score, hubness-corrected score, reverse rank;
+# PRF feedback per graph; P9 score + rank; candidate hubness), 5-fold over dev queries, test = mean of fold models.
+base: p9_rerank.yaml
+id: P12
+name: pcr_ltr
+rr:
+  p9meta: submissions/P9_pcr_rerank/meta.json
+  depth: 100
+  seeds: [1, 2, 3]
+  epochs: [20, 40, 80]
+  hid: [32, 64]
+  wd: [1.0e-3, 1.0e-2]

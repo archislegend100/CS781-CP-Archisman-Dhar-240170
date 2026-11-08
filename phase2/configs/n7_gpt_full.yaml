@@ -1,0 +1,10 @@
+# N7: LegalGPT (S1), full fine-tuning, causal mask removed in all layers, BIO token head.
+# Same backbone and head as N2 (LoRMA+), so N7 vs N2 isolates full vs parameter-efficient fine-tuning.
+base: base.yaml
+id: N7
+name: ner_gpt_full
+ner:
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  method: full
+  unmask: all
+  lr: 5.0e-5

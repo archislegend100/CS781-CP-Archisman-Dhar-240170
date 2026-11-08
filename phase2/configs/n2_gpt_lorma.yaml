@@ -1,0 +1,12 @@
+# N2: LegalGPT (S1, Supreme-Court adapted), LoRMA+ (compulsory; r = alpha = 8 as in the paper) on all
+# attention/FFN projections, causal mask removed in every layer, BIO token head.
+base: base.yaml
+id: N2
+name: ner_gpt_lorma
+ner:
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  method: lorma
+  rank: 8
+  alpha: 8
+  unmask: all
+  lr: 5.0e-4

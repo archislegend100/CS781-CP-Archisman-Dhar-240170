@@ -1,0 +1,17 @@
+# data, caches, checkpoints and outputs are produced by the phase scripts
+/data/
+/cache/
+/splits/
+/runs/
+/submissions/
+/logs/
+/models/
+/evaluation_script/
+*.pt
+*.npy
+*.log
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+virtualenv.pyz

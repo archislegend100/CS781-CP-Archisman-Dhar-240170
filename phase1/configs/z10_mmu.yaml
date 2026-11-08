@@ -1,0 +1,11 @@
+# Z10: multi-model utility (cf. Kovacs et al. 2024): embedding F1 averaged over Z3 and S3 hidden states.
+base: legalgpt.yaml
+notrain: true
+id: Z10
+subname: pool64_mmu
+pool:
+  tags: [z3, z3b, s3, s3b]
+  wr: 0.0
+  wb: 0.0
+  we: 1.0
+  embruns: [[runs/selfrank_dpo, best], [runs/legalhybrid_sc2, last]]

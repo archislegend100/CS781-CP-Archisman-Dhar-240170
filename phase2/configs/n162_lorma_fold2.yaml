@@ -1,0 +1,7 @@
+# 2-fold CV member: N2's LoRMA+ setup trained on fold2, epoch selected on all 35 docs of fold1.
+base: n2_gpt_lorma.yaml
+id: N162
+name: ner_gpt_lorma_f2
+ner:
+  trainfold: fold2
+  valfold: fold1

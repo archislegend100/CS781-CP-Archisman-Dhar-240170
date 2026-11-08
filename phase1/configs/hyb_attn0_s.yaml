@@ -1,0 +1,14 @@
+# Attention-ratio ablation: no attention at all (pure Hyena, attnevery > layers), ff 1728 (132.0M).
+base: legalhybrid.yaml
+id: R4
+name: hyb_attn0_s
+model:
+  attnevery: 21
+  ff: 1728
+train:
+  tokens: 5.0e+8
+  warmup: 150
+generation:
+  mode: greedy
+  repetition: 1.15
+  norepeat: 4

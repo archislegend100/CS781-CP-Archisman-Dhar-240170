@@ -1,0 +1,10 @@
+# L28: weighted ensemble of every useful member: dev cross-fitted (L21-L23, L26 DB loss, L27 MIL), chunked (L12-L17) and
+# original members; member weights and per-statute thresholds tuned on dev (members that are missing are skipped).
+base: base.yaml
+id: L28
+name: lsi_ens_final2
+ens:
+  runs: [runs/lsi/lsi_kd_mil_dcv, runs/lsi/lsi_hyb_adapter_db_dcv, runs/lsi/lsi_kd_dcv, runs/lsi/lsi_gpt_full_dcv, runs/lsi/lsi_hyb_adapter_dcv,
+         runs/lsi/lsi_gpt_full_chunk, runs/lsi/lsi_hyb_adapter_chunk, runs/lsi/lsi_kd_student_chunk, runs/lsi/lsi_gpt_lorma_chunk,
+         runs/lsi/lsi_long_qlora_chunk, runs/lsi/lsi_gpt_partial_chunk, runs/lsi/lsi_gpt_full, runs/lsi/lsi_hyb_adapter,
+         runs/lsi/lsi_kd_student, runs/lsi/lsi_long_qlora]

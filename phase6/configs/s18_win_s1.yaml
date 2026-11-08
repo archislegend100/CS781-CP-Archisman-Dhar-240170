@@ -1,0 +1,18 @@
+# S18: chunk-interleaved hybrid on S1 (LoRMA+), built for BERTScore's 512-token window (only ~the first 400 words of candidate and
+# reference are compared): chunk by chunk in document order, the faithfulness-filtered generated summary then the chunk's
+# most salient sentences within a per-chunk allowance. Settings chosen on the held-out split by the official scorer
+# (local roberta-large, selection only) if present, else by the Phase-1 proxy on the first 400 words.
+base: base.yaml
+id: S18
+name: sm_win_s1
+sm: {chunk: 1280}
+hyb:
+  fromrun: sm_gpt_lorma
+  official: true
+  window: 400
+  maxwords: 1200
+  lengrid: [0.5, 0.75, 1.0, 1.5]
+  fracgrid: [0.25, 0.5, 1.0]
+  taugrid: [0.0, 0.5]
+proxy: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last, layers: [10, 13, 16], seg: 1024, maxtok: 3072,
+        bsmodel: models/roberta-large, bslayer: 17}

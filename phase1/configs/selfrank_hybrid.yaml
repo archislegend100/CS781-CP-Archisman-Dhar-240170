@@ -1,0 +1,45 @@
+# Z2: self-ranking on S2 (LegalHybrid-SC, last checkpoint) with the pairwise ranking loss; Supreme Court prompts,
+# greedy decoding. Separate run directory, so the S2 run is never modified.
+base: legalhybrid.yaml
+id: Z2
+name: selfrank_hybrid
+fromrun: runs/legalhybrid_sc
+fromckpt: last
+data:
+  sources: [supremecourt]
+generation:
+  mode: greedy
+  repetition: 1.15
+  norepeat: 4
+rank:
+  prompts: 1000
+  monitor: 16
+  k: 4
+  promptwords: 512
+  words: 128
+  pairs: runs/selfrank_hybrid/pairs.jsonl
+  bleu: 0.5
+  rep: 1.0
+  margin: 0.02
+  beta: 0.1
+  lmweight: 0.5
+  dpo: false
+  norm: mean
+  lr: 1.0e-5
+  steps: 400
+  batch: 4
+  accum: 4
+  warmup: 20
+  every: 50
+  sample:
+    mode: sample
+    temperature: 0.9
+    topk: 0
+    topp: 0.95
+    repetition: 1.0
+    norepeat: 0
+    words: 128
+    maxnew: 480
+    batch: 32
+    rounds: 3
+    seed: 99

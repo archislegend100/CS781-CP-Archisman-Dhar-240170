@@ -1,0 +1,5 @@
+# N20 member: as N201 with another seed (bagging; adds only the 2.2M LoRMA+ parameters on the shared S1 backbone).
+base: n201_lorma_all.yaml
+id: N202
+name: ner_gpt_lorma_all_s2
+seed: 7

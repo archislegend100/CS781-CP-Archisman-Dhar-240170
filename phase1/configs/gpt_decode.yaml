@@ -1,0 +1,10 @@
+# Decoding experiment: the trained LegalGPT checkpoint, deterministic decoding instead of sampling.
+base: legalgpt.yaml
+id: D1
+subname: legalgpt_greedy
+notrain: true
+run: runs/legalgpt
+generation:
+  mode: greedy
+  repetition: 1.15
+  norepeat: 4

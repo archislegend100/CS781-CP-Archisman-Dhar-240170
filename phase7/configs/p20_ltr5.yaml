@@ -1,0 +1,6 @@
+# P20: P18 with both MaxSim-trained retrievers (P17 LegalGPT, P19 LegalHybrid) as extra views.
+base: p18_ltr4.yaml
+id: P20
+name: pcr_ltr5
+rr:
+  extraruns: [runs/pcr/pcr_gpt_mil, runs/pcr/pcr_hyb_mil]

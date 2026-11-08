@@ -1,0 +1,8 @@
+# L27: the 8-block distilled student (L21 setup) trained with multiple-instance chunk learning: up to 3 windows of 2048
+# tokens per document through the shared encoder, chunk logits pooled by log-sum-exp (Pinheiro & Collobert 2015) and
+# trained against the document's statutes, the same aggregation at prediction; dev cross-fitted as L21.
+base: base.yaml
+id: L27
+name: lsi_kd_mil_dcv
+devjoin:
+  runs: [runs/lsi/lsi_kd_mil_dcv_df0, runs/lsi/lsi_kd_mil_dcv_df1]

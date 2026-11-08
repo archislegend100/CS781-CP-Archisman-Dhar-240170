@@ -1,0 +1,43 @@
+# BASE-0: official starter reproduced with the custom trainer (reference only; starter predictions
+# do not count toward the submission minimum).
+base: base.yaml
+id: B0
+name: starter
+data:
+  sources: [supremecourt]
+  mixing: natural
+tokenizer:
+  source: gpt2
+  kind: hf
+  name: openai-community/gpt2
+  path: assets/gpt2_tokenizer.json
+model:
+  name: starter
+  vocab: 50257
+  dim: 560
+  layers: 8
+  qheads: 8
+  ctx: 2048
+  seq: 2048
+  dropout: 0.1
+train:
+  precision: fp16
+  batch: 4
+  accum: 2
+  lr: 3.0e-4
+  minlr: 0.0
+  betas: [0.9, 0.999]
+  wd: 0.1
+  warmup: 500
+  tokens: 2.0e+8
+  log: 100
+  save: 1000
+valid:
+  every: 1000
+  windows: 640
+  batch: 8
+generation:
+  temperature: 0.1
+  topp: 0.95
+  repetition: 1.0
+  maxnew: 384

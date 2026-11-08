@@ -1,0 +1,7 @@
+# S2: LegalHybrid-SC + Houlsby adapters (after every mixer / attention / FFN sublayer).
+base: base.yaml
+id: S2
+name: sm_hyb_houlsby
+sm:
+  backbone: {config: phase1/configs/legalhybrid_sc2.yaml, run: runs/legalhybrid_sc2, ckpt: last}
+  method: houlsby

@@ -1,0 +1,8 @@
+# C18: C2's trained model with the same multi-window test-time augmentation as C17.
+base: c2_hyb_adapter.yaml
+id: C18
+name: cj_hyb_adapter_tta
+cj:
+  fromrun: cj_hyb_adapter
+  tta: [0, 1024, 2048]
+  trainprobs: false

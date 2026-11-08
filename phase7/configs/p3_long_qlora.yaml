@@ -1,0 +1,12 @@
+# P3: LongLegal + QLoRA (NF4 frozen base, LoRA r16/alpha32) with 2048-token chunks x 2 (long-context representation).
+base: base.yaml
+id: P3
+name: pcr_long_qlora
+pcr:
+  backbone: {config: phase1/configs/longlegal.yaml, run: runs/longlegal, ckpt: best}
+  method: qlora
+  rank: 16
+  alpha: 32
+  window: 2048
+  nchunks: 2
+  batch: 8

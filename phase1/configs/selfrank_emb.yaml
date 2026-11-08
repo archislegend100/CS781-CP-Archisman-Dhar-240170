@@ -1,0 +1,31 @@
+# Z11: self-ranking with an embedding reward. The existing S1 candidate pairs are re-ranked by S1's own
+# hidden-state F1 to the gold continuation (BERTScore-style), then standard DPO (summed log-probs) as in Z3.
+base: selfrank.yaml
+id: Z11
+name: selfrank_emb
+fromrun: runs/legalgpt_sc
+fromckpt: last
+data:
+  sources: [supremecourt]
+generation:
+  mode: greedy
+  repetition: 1.15
+  norepeat: 4
+  ckpt: best
+rank:
+  dpo: true
+  pairsrc: runs/selfrank/pairs.jsonl
+  pairs: runs/selfrank_emb/pairs.jsonl
+  rwe: 1.0
+  rwr: 0.0
+  rwb: 0.0
+  rep: 1.0
+  margin: 0.005
+  norm: sum
+  beta: 0.1
+  lmweight: 0.1
+  lr: 5.0e-6
+  steps: 200
+  every: 25
+  batch: 4
+  accum: 4

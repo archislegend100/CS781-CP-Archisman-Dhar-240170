@@ -1,0 +1,14 @@
+# N6: knowledge distillation. Teacher = best token-head model among N1-N4 (set on the command line by
+# phase2/run.sh); student = the first 8 of 20 LegalGPT (S1) layers (~54M of 130M params), fully fine-tuned
+# on L = alpha * CE(gold) + (1 - alpha) * T^2 * KL(teacher || student), plus KL on 2000 unlabeled windows of
+# official Phase-1 Supreme Court text (transfer set, Hinton et al. 2015).
+base: base.yaml
+id: N6
+name: ner_kd_student
+ner:
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  method: kd
+  layers: 8
+  unmask: all
+  lr: 1.0e-4
+  kd: {teacher: runs/ner/ner_seq_full, T: 2.0, alpha: 0.5, unlabeled: 2000}

@@ -1,0 +1,11 @@
+# N26: N24 (best: 0.6241) with four more already-trained PEFT members on the same frozen backbones added to the test
+# ensemble only (method diversity: LoRMA+ N2, hybrid LoRA N3, IA3 N13, LoRMA-pi N15; trained on 60 docs).
+# Calibration (bias, thresholds, rules) is still chosen out-of-fold exactly as in N24.
+base: n24_oof_wide_doc.yaml
+id: N26
+name: ner_oof_diverse
+oof:
+  test: [runs/ner/ner_gpt_lorma_f1, runs/ner/ner_gpt_lorma_s2_f1, runs/ner/ner_gpt_lora_f1, runs/ner/ner_hyb_lora_f1, runs/ner/ner_hyb_lora_s2_f1,
+         runs/ner/ner_gpt_lorma_f2, runs/ner/ner_gpt_lorma_s2_f2, runs/ner/ner_gpt_lora_f2, runs/ner/ner_hyb_lora_f2, runs/ner/ner_hyb_lora_s2_f2,
+         runs/ner/ner_gpt_lorma_all, runs/ner/ner_gpt_lorma_all_s2, runs/ner/ner_gpt_lora_all, runs/ner/ner_hyb_lora_all,
+         runs/ner/ner_gpt_lorma, runs/ner/ner_hyb_lora, runs/ner/ner_gpt_ia3, runs/ner/ner_gpt_lormapi]

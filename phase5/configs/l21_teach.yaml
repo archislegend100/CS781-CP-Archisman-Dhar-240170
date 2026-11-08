@@ -1,0 +1,8 @@
+# Teacher for L21: the L8 ensemble's probabilities on train AND dev documents (soft targets for every training doc).
+base: l9_kd.yaml
+id: L21T
+name: lsi_kd_dcv_teacher
+teach:
+  fromrun: lsi_ens
+  withdev: true
+  out: runs/lsi/teacher_dev.pt

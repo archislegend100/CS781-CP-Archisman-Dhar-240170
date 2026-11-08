@@ -1,0 +1,10 @@
+# R14: dev-calibrated ensemble of the two document taggers (R12, R13) and the fine-tuned context models (R1-R6):
+# member weights, CRF transition scale and per-label biases tuned for macro-F1 on the official dev set.
+base: base.yaml
+id: R14
+name: rr_ens_doc
+ens:
+  runs: [runs/rr/rr_seq_wide, runs/rr/rr_seq4, runs/rr/rr_gpt_lorma, runs/rr/rr_hyb_rslora, runs/rr/rr_long_qlora,
+         runs/rr/rr_seq_adalora, runs/rr/rr_gpt_full, runs/rr/rr_gpt_ia3]
+  tuneweights: true
+  passes: 2

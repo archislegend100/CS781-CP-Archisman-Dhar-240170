@@ -1,0 +1,14 @@
+# R18: cross-fitted document tagger. 5 folds x 3 seeds over ALL labelled documents (train + dev); input = frozen
+# features of seven Phase-1 checkpoints + a lexical LSA view (TF-IDF word 1-2-grams -> 256-d SVD over the official
+# text); the CRF transition scale and per-label biases are tuned on the out-of-fold predictions of every labelled
+# document (so rare roles that dev lacks, e.g. Dissent / PrecedentOverruled, are calibrated too); test = average of
+# the 15 fold models (stacking / cross-fitting, Wolpert 1992).
+base: r13_seq_wide.yaml
+id: R18
+name: rr_cv_lex
+seq:
+  lex: 256
+  folds: 5
+  seeds: [1, 2, 3]
+  cvepochs: 20
+  perdomain: false

@@ -1,0 +1,10 @@
+# L24: weighted ensemble of the dev-cross-fitted members (L21-L23) with the chunked (L12-L17) and original members;
+# member weights and per-statute thresholds tuned on dev.
+base: base.yaml
+id: L24
+name: lsi_ens_dcv
+ens:
+  runs: [runs/lsi/lsi_kd_dcv, runs/lsi/lsi_gpt_full_dcv, runs/lsi/lsi_hyb_adapter_dcv,
+         runs/lsi/lsi_gpt_full_chunk, runs/lsi/lsi_hyb_adapter_chunk, runs/lsi/lsi_kd_student_chunk, runs/lsi/lsi_gpt_lorma_chunk,
+         runs/lsi/lsi_long_qlora_chunk, runs/lsi/lsi_gpt_partial_chunk, runs/lsi/lsi_gpt_full, runs/lsi/lsi_hyb_adapter,
+         runs/lsi/lsi_kd_student, runs/lsi/lsi_long_qlora]

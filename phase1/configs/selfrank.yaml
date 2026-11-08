@@ -1,0 +1,46 @@
+# Z1: self-ranking post-training of S1 (LegalGPT-SC, last checkpoint) with the pairwise ranking loss.
+# The run never overwrites its base run; the pairs file is reused by Z3 and Z11.
+base: legalgpt.yaml
+id: Z1
+name: selfrank
+fromrun: runs/legalgpt_sc
+fromckpt: last
+data:
+  sources: [supremecourt]
+generation:
+  mode: greedy
+  repetition: 1.15
+  norepeat: 4
+  ckpt: best
+rank:
+  prompts: 2000
+  monitor: 16
+  k: 4
+  promptwords: 512
+  words: 128
+  pairs: runs/selfrank/pairs.jsonl
+  bleu: 0.5
+  rep: 1.0
+  margin: 0.02
+  beta: 0.1
+  lmweight: 0.5
+  dpo: false
+  norm: mean
+  lr: 1.0e-5
+  steps: 400
+  batch: 2
+  accum: 8
+  warmup: 20
+  every: 50
+  sample:
+    mode: sample
+    temperature: 0.9
+    topk: 0
+    topp: 0.95
+    repetition: 1.0
+    norepeat: 0
+    words: 128
+    maxnew: 480
+    batch: 32
+    rounds: 3
+    seed: 99

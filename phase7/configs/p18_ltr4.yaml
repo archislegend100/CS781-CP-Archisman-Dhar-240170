@@ -1,0 +1,7 @@
+# P18: P16's cross-fitted LTR + the MaxSim-trained retriever P17 as extra views (and their query-graph propagation)
+# + 2-hop query-graph propagation.
+base: p16_ltr3b.yaml
+id: P18
+name: pcr_ltr4
+rr:
+  extraruns: [runs/pcr/pcr_gpt_mil]

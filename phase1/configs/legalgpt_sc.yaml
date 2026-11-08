@@ -1,0 +1,24 @@
+# Domain-adaptive continued pretraining of G1 toward the test distribution (test prompts are ~98%
+# Supreme Court, testsrc.py). Starts from G1's weights with a fresh optimizer and a re-warmed cosine
+# schedule; 15% replay of the other sources limits forgetting. Official training data only.
+base: legalgpt.yaml
+id: S1
+name: legalgpt_sc
+data:
+  sources: [acts, highcourts, supremecourt, tribunals]
+  mixing: weights
+  weights: {acts: 0.05, highcourts: 0.05, supremecourt: 0.85, tribunals: 0.05}
+train:
+  init: runs/legalgpt/ckpt/best.pt
+  lr: 1.5e-4
+  minlr: 1.5e-5
+  warmup: 50
+  tokens: 4.0e+8
+  sample: 0
+valid:
+  every: 200
+generation:
+  mode: greedy
+  repetition: 1.15
+  norepeat: 4
+  ckpt: last

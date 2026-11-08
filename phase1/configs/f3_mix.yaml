@@ -1,0 +1,12 @@
+# F3: MBR over pooled Z3 + S2 candidates, utility ROUGE-L + 0.5 BLEU + EmbF1.
+base: legalgpt.yaml
+notrain: true
+id: F3
+subname: pool_z3s2_mix
+pool:
+  tags: [z3, s2]
+  wr: 1.0
+  wb: 0.5
+  we: 1.0
+  embrun: runs/selfrank_dpo
+  embckpt: best

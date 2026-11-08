@@ -1,0 +1,13 @@
+# Z13 (final): Z10 (64-candidate Z3 + S3 pool, embedding utility averaged over both models) with the utility also
+# averaged over three depths (layers 10, 13, 16 of 20; BERTScore is layer-sensitive, Zhang et al. 2020).
+base: legalgpt.yaml
+notrain: true
+id: Z13
+subname: pool64_mmu_3layer
+pool:
+  tags: [z3, z3b, s3, s3b]
+  wr: 0.0
+  wb: 0.0
+  we: 1.0
+  embruns: [[runs/selfrank_dpo, best], [runs/legalhybrid_sc2, last]]
+  layers: [10, 13, 16]

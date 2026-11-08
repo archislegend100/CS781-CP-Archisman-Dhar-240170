@@ -1,0 +1,6 @@
+# R16: R13's document tagger refit on train + dev for the median best epoch of its seeds (set by phase3/run.sh).
+base: r13_seq_wide.yaml
+id: R16
+name: rr_seq_wide_all
+seq:
+  alldocs: true

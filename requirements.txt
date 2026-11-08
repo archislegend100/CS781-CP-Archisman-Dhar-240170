@@ -1,0 +1,9 @@
+# torch is installed by scripts/env.sh from the wheel index that matches the driver's CUDA version
+numpy
+pyyaml
+ijson
+huggingface_hub
+tokenizers
+bert-score
+rouge-score
+pytest

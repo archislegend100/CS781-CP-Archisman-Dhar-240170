@@ -1,0 +1,10 @@
+# L12: lsi_gpt_full (already trained) re-scored with chunk-level predictions + document-level aggregation: consecutive windows from
+# the start of the document (up to 3), per-statute max over chunks (PS 11.1); per-statute thresholds re-tuned on dev.
+base: l5_gpt_full.yaml
+id: L12
+name: lsi_gpt_full_chunk
+lsi:
+  fromrun: lsi_gpt_full
+  chunks: 3
+  agg: max
+  trainprobs: false

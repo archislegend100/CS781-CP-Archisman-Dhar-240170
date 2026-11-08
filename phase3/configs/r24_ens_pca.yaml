@@ -1,0 +1,10 @@
+# R24: R22 + R23 (cross-fitted) blended with the fine-tuned R1-R6; member weights, transition scale and per-label
+# biases tuned on the official dev set (where the cross-fitted members are honest out-of-fold).
+base: base.yaml
+id: R24
+name: rr_ens_pca
+ens:
+  runs: [runs/rr/rr_cv_pca, runs/rr/rr_cv_pca_small, runs/rr/rr_cv_lex, runs/rr/rr_gpt_lorma, runs/rr/rr_hyb_rslora,
+         runs/rr/rr_long_qlora, runs/rr/rr_seq_adalora, runs/rr/rr_gpt_full, runs/rr/rr_gpt_ia3]
+  tuneweights: true
+  passes: 2

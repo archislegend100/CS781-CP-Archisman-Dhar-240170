@@ -1,0 +1,6 @@
+# S14: quality-weighted document-level MBR over the hybrid summaries (S10-S13).
+base: base.yaml
+id: S14
+name: sm_mbr_hybrid
+ens:
+  runs: [runs/sm/sm_hybrid_s1, runs/sm/sm_hybrid_s2, runs/sm/sm_hybrid_s3, runs/sm/sm_hybrid_mbr]

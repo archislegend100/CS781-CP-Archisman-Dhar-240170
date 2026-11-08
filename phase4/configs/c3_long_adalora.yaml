@@ -1,0 +1,16 @@
+# C3: LongLegal (L1) + AdaLoRA (rank 12 -> average 4 by importance), last 4096 tokens (window-512 local attention +
+# global layers make the longer context affordable); gradient checkpointing.
+base: base.yaml
+id: C3
+name: cj_long_adalora
+cj:
+  backbone: {config: phase1/configs/longlegal.yaml, run: runs/longlegal, ckpt: best}
+  method: adalora
+  rank0: 12
+  target: 4
+  alpha: 16
+  window: 4096
+  batch: 2
+  accum: 8
+  evalbatch: 8
+  ckpt: true

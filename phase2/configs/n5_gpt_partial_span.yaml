@@ -1,0 +1,14 @@
+# N5: LegalGPT (S1), partial fine-tuning (top 8 of 20 layers + final norm), biaffine span head
+# (span-based vs token-based comparison with N2), unmasked attention.
+base: base.yaml
+id: N5
+name: ner_gpt_partial_span
+ner:
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  method: partial
+  partial: 8
+  head: biaffine
+  maxwidth: 64
+  unmask: all
+  batch: 4
+  lr: 1.0e-4

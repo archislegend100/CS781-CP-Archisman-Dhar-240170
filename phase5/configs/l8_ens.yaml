@@ -1,0 +1,7 @@
+# L8: weighted ensemble of L1-L7 (member weights + per-statute thresholds tuned on dev); distillation teacher.
+base: base.yaml
+id: L8
+name: lsi_ens
+ens:
+  runs: [runs/lsi/lsi_gpt_lorma, runs/lsi/lsi_hyb_adapter, runs/lsi/lsi_long_qlora, runs/lsi/lsi_seq_adalora,
+         runs/lsi/lsi_gpt_full, runs/lsi/lsi_gpt_partial, runs/lsi/lsi_gpt_prompt]

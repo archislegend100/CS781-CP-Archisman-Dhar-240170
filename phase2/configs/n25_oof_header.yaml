@@ -1,0 +1,10 @@
+# N25: N24 (wide bagged OOF ensemble + document rules) + cause-title party parsing (names before/after "Versus" in
+# the preamble and final order -> APP/RESP; Kalamkar et al. 2022), counsel-side fix from the following role word,
+# and a finer per-label bias grid (3 passes). Every step is kept only if it raises out-of-fold F1.
+base: n24_oof_wide_doc.yaml
+id: N25
+name: ner_oof_header
+oof:
+  grid: [-3.0, -2.0, -1.5, -1.0, -0.5, -0.25, 0.25, 0.5, 1.0, 1.5, 2.0, 3.0]
+  passes: 3
+  steps: [rolefix, boundary, gazetteer, header, counselfix, witcue, vote, consistency, consistency_ci]

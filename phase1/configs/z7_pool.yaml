@@ -1,0 +1,12 @@
+# Z7 (final, self-ranking family): MBR over pooled Z3 (self-ranked) + S3 candidates, mixed utility.
+base: legalgpt.yaml
+notrain: true
+id: Z7
+subname: pool_z3s3_mix
+pool:
+  tags: [z3, s3]
+  wr: 1.0
+  wb: 0.5
+  we: 1.0
+  embrun: runs/selfrank_dpo
+  embckpt: best

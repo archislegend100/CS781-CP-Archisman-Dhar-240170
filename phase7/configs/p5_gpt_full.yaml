@@ -1,0 +1,7 @@
+# P5: LegalGPT-SC full fine-tuning dense retriever.
+base: base.yaml
+id: P5
+name: pcr_gpt_full
+pcr:
+  method: full
+  lr: 2.0e-5

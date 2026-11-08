@@ -1,0 +1,8 @@
+# R22: R18 with each frozen Phase-1 view reduced to 256 dims by unsupervised PCA before concatenation
+# (7 x 256 + 256 lexical = 2048 inputs instead of 16384), so the lexical view is 1/8 of the input instead of 1/64 and
+# the BiLSTM-CRF overfits less on ~72 training documents per fold; cross-fitted and OOF-calibrated as R18.
+base: r18_cv_lex.yaml
+id: R22
+name: rr_cv_pca
+seq:
+  pca: 256

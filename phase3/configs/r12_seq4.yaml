@@ -1,0 +1,25 @@
+# R12: whole-document hierarchical BiLSTM-CRF (Bhattacharya et al. 2019; HSLN, Kalamkar et al. 2022) over FROZEN
+# sentence features of all four Phase-1 architectures (S1, S3, L1, Q1 encoder; mean state at 3 depths each), with
+# relative-position and domain embeddings, label-shift auxiliary loss, class weights; bag of 5 seeds. Unlike R1-R6
+# the sequence model sees every sentence of the document at once, and nothing in the backbones is fitted to the
+# small training set.
+base: feats.yaml
+id: R12
+name: rr_seq4
+seq:
+  feats: [s1, s3, l1, q1]
+  proj: 512
+  hid: 256
+  layers: 2
+  fdrop: 0.5
+  sdrop: 0.3
+  posbuckets: 20
+  crf: true
+  shift: 0.3
+  cw: 0.5
+  lr: 1.0e-3
+  wd: 0.01
+  accum: 4
+  epochs: 80
+  patience: 12
+  seeds: [1, 2, 3, 4, 5]

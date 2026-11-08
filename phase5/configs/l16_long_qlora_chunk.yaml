@@ -1,0 +1,10 @@
+# L16: lsi_long_qlora (already trained) re-scored with chunk-level predictions + document-level aggregation: consecutive windows from
+# the start of the document (up to 2), per-statute max over chunks (PS 11.1); per-statute thresholds re-tuned on dev.
+base: l3_long_qlora.yaml
+id: L16
+name: lsi_long_qlora_chunk
+lsi:
+  fromrun: lsi_long_qlora
+  chunks: 2
+  agg: max
+  trainprobs: false

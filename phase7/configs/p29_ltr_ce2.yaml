@@ -1,0 +1,6 @@
+# P29: cross-fitted ranker with both cross-encoders (P25, P28) and the MaxSim retrievers as views.
+base: p26_ltr_ce.yaml
+id: P29
+name: pcr_ltr_ce2
+rr:
+  extraruns: [runs/pcr/pcr_ce, runs/pcr/pcr_ce2, runs/pcr/pcr_gpt_mil, runs/pcr/pcr_hyb_mil]

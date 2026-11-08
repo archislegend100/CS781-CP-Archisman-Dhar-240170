@@ -1,0 +1,8 @@
+# L6: LegalGPT-SC (S1) partial / layer-wise fine-tuning (top 8 of 20 blocks), label-wise attention head.
+base: base.yaml
+id: L6
+name: lsi_gpt_partial
+lsi:
+  method: partial
+  partial: 8
+  lr: 5.0e-5

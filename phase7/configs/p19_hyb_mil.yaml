@@ -1,0 +1,7 @@
+# P19: P17's multiple-instance MaxSim training on LegalHybrid-SC with LoRMA+ (r16) -- a second, architecturally different
+# late-interaction retriever for the ensemble.
+base: p17_gpt_mil.yaml
+id: P19
+name: pcr_hyb_mil
+pcr:
+  backbone: {config: phase1/configs/legalhybrid_sc2.yaml, run: runs/legalhybrid_sc2, ckpt: last}

@@ -1,0 +1,6 @@
+# R20: ablation of R18 without the lexical view (frozen Phase-1 features only), cross-fitted and OOF-calibrated.
+base: r18_cv_lex.yaml
+id: R20
+name: rr_cv_nolex
+seq:
+  lex: 0

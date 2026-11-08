@@ -1,0 +1,12 @@
+# Z8: MBR over 64 candidates/prompt (Z3 + S3, 32 each, two temperatures), embedding utility (F2 won).
+base: legalgpt.yaml
+notrain: true
+id: Z8
+subname: pool64_emb
+pool:
+  tags: [z3, z3b, s3, s3b]
+  wr: 0.0
+  wb: 0.0
+  we: 1.0
+  embrun: runs/selfrank_dpo
+  embckpt: best

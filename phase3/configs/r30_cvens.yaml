@@ -1,0 +1,10 @@
+# R30: ensemble of cross-fitted members only -- document taggers (R25, R27, R22, R23, R18) and cross-fitted fine-tuned
+# models (R28 hybrid rsLoRA, R29 LoRMA+), all with honest out-of-fold predictions on the same 90 labelled docs, so
+# member weights, transition scale and per-label biases are tuned on ~21k sentences instead of the dev set alone.
+base: base.yaml
+id: R30
+name: rr_cvens
+ens:
+  runs: [runs/rr/rr_cv_sparse, runs/rr/rr_cv_sparse_reg, runs/rr/rr_cv_pca, runs/rr/rr_cv_pca_small, runs/rr/rr_cv_lex,
+         runs/rr/rr_hyb_cf, runs/rr/rr_gpt_lorma_cf]
+  passes: 2

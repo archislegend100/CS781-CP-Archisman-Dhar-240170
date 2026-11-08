@@ -1,0 +1,7 @@
+# C9: weighted ensemble of C1-C8 (member weights and decision threshold tuned on dev); also the distillation teacher.
+base: base.yaml
+id: C9
+name: cj_ens
+ens:
+  runs: [runs/cj/cj_gpt_lorma, runs/cj/cj_hyb_adapter, runs/cj/cj_long_adalora, runs/cj/cj_seq_bitfit, runs/cj/cj_gpt_full,
+         runs/cj/cj_gpt_unfreeze, runs/cj/cj_gpt_partial, runs/cj/cj_hier]

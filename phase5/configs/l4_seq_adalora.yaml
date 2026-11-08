@@ -1,0 +1,13 @@
+# L4: LegalSeq (Q1) encoder + AdaLoRA (rank 12 -> average 4 by importance), first 1024 tokens.
+base: base.yaml
+id: L4
+name: lsi_seq_adalora
+lsi:
+  backbone: {config: phase1/configs/legalseq.yaml, run: runs/legalseq, ckpt: best}
+  method: adalora
+  rank0: 12
+  target: 4
+  alpha: 16
+  window: 1024
+  batch: 8
+  accum: 2

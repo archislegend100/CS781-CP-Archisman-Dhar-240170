@@ -1,0 +1,14 @@
+# Z6 (self-ranking family, final): Z3 (main) + S2 ensemble, MBR over greedy + 16 samples.
+base: z3_selfrank_dpo.yaml
+id: Z6
+name: selfrank_dpo
+subname: ens_z3_s2_mbr16
+notrain: true
+generation:
+  mode: greedy
+  repetition: 1.15
+  norepeat: 4
+  ckpt: best
+  ensemble: [runs/legalhybrid_sc]
+  ensckpt: last
+  mbr: 16

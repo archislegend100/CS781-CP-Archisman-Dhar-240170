@@ -1,0 +1,14 @@
+# Z9: quality-aware MBR (Fernandes et al. 2022): z(expected embedding utility) + 0.3 z(mean log-lik under Z3 and S3).
+base: legalgpt.yaml
+notrain: true
+id: Z9
+subname: pool64_qmbr
+pool:
+  tags: [z3, z3b, s3, s3b]
+  wr: 0.0
+  wb: 0.0
+  we: 1.0
+  embrun: runs/selfrank_dpo
+  embckpt: best
+  wl: 0.3
+  lmruns: [[runs/selfrank_dpo, best], [runs/legalhybrid_sc2, last]]

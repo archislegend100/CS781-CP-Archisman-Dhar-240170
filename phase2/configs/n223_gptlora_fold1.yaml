@@ -1,0 +1,10 @@
+# N22 member: LegalGPT (S1) + LoRA r8/alpha16 (unmasked), trained on fold1, epoch selected on fold2.
+base: n2_gpt_lorma.yaml
+id: N223
+name: ner_gpt_lora_f1
+ner:
+  method: lora
+  rank: 8
+  alpha: 16
+  trainfold: fold1
+  valfold: fold2

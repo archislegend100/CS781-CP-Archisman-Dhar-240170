@@ -1,0 +1,5 @@
+# R1: LegalGPT-SC (S1) + LoRMA+ (compulsory; Bihany, Patel, Modi 2025), r = alpha = 8 on all projections, unmasked,
+# hierarchical context model (packed sentence chunks -> mean-pooled sentence vectors + position + domain -> BiGRU -> CRF).
+base: base.yaml
+id: R1
+name: rr_gpt_lorma

@@ -1,0 +1,5 @@
+# P1: LegalGPT-SC + LoRMA+ (compulsory) dense retriever: InfoNCE over in-batch + BM25 hard negatives, mean-of-chunks
+# document embeddings, dev-tuned fusion with BM25.
+base: base.yaml
+id: P1
+name: pcr_gpt_lorma

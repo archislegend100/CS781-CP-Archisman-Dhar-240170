@@ -1,0 +1,8 @@
+# L26: LegalHybrid-SC + adapters (L2/L23 setup) trained with the distribution-balanced loss (Wu et al. ECCV 2020; Huang
+# et al. EMNLP 2021: rebalanced weighting + negative-tolerant regularisation, for rare statutes / macro-F1), dev
+# cross-fitted (2 folds on train + half of dev, test-overlapping dev cases removed), chunk aggregation at prediction.
+base: base.yaml
+id: L26
+name: lsi_hyb_adapter_db_dcv
+devjoin:
+  runs: [runs/lsi/lsi_hyb_adapter_db_dcv_df0, runs/lsi/lsi_hyb_adapter_db_dcv_df1]

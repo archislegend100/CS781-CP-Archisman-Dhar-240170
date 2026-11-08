@@ -1,0 +1,6 @@
+# P23: ensemble (RRF or z-average, weights on cross-fitted dev scores) of the rankers P15, P16, P21, P22.
+base: p16_ltr3b.yaml
+id: P23
+name: pcr_ens
+rr:
+  ensruns: [runs/pcr/pcr_ltr3, runs/pcr/pcr_ltr3b, runs/pcr/pcr_ltr_var1, runs/pcr/pcr_ltr_var2]

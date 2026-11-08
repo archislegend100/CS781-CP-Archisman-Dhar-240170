@@ -1,0 +1,39 @@
+# Phase 2 (L-NER) defaults. Backbones are the trained Phase-1 checkpoints; nothing external is loaded.
+seed: 1234
+evaluator: evaluation_script/evaluate_phase2.py
+ner:
+  repo: Exploration-Lab/CS-781-Capstone
+  root: data/phase2
+  files:
+    fold1_text: Phase_2_LNER/Train/fold1-text.json
+    fold1_gold: Phase_2_LNER/Train/fold1-gold.json
+    fold2_text: Phase_2_LNER/Train/fold2-text.json
+    fold2_gold: Phase_2_LNER/Train/fold2-gold.json
+    labels: Phase_2_LNER/Train/labels.txt
+    test: Phase_2_LNER/Test/fold3-text.json
+  valdocs: 10
+  window: 1024
+  stride: 256
+  head: token
+  maxwidth: 64
+  unmask: all
+  method: full
+  rank: 8
+  alpha: 16
+  targets: [q, kv, o, up, down, inp, out]
+  bottleneck: 64
+  partial: 8
+  cw: 0.5
+  spancw: 0.3
+  lr: 5.0e-5
+  headlr: 1.0e-3
+  epochs: 20
+  patience: 5
+  batch: 8
+  warmup: 0.1
+  wd: 0.01
+  drop: 0.1
+  clip: 1.0
+  precision: bf16
+  ckpt: false
+  kd: {T: 2.0, alpha: 0.5, unlabeled: 0}

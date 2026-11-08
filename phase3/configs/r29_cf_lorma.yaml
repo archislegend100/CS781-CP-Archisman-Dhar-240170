@@ -1,0 +1,6 @@
+# R29: cross-fitted R1 (LegalGPT-SC + LoRMA+, hierarchical context model), 5 folds x 8 epochs, as R28.
+base: base.yaml
+id: R29
+name: rr_gpt_lorma_cf
+cvjoin:
+  runs: [runs/rr/rr_gpt_lorma_cf_f0, runs/rr/rr_gpt_lorma_cf_f1, runs/rr/rr_gpt_lorma_cf_f2, runs/rr/rr_gpt_lorma_cf_f3, runs/rr/rr_gpt_lorma_cf_f4]

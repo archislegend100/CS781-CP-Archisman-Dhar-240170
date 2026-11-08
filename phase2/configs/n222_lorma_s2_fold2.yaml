@@ -1,0 +1,5 @@
+# N22 member: N162 (LoRMA+ on S1, trained on fold2) with another seed.
+base: n162_lorma_fold2.yaml
+id: N222
+name: ner_gpt_lorma_s2_f2
+seed: 7

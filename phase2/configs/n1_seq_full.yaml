@@ -1,0 +1,9 @@
+# N1: LegalSeq (Q1) bidirectional encoder, full fine-tuning, BIO token head + constrained Viterbi.
+base: base.yaml
+id: N1
+name: ner_seq_full
+ner:
+  backbone: {config: phase1/configs/legalseq.yaml, run: runs/legalseq, ckpt: best}
+  method: full
+  unmask: none
+  lr: 5.0e-5

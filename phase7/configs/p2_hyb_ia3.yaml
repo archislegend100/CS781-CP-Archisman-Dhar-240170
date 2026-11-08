@@ -1,0 +1,8 @@
+# P2: LegalHybrid-SC + IA3 (learned rescaling of keys/values / Hyena inputs and FFN activations).
+base: base.yaml
+id: P2
+name: pcr_hyb_ia3
+pcr:
+  backbone: {config: phase1/configs/legalhybrid_sc2.yaml, run: runs/legalhybrid_sc2, ckpt: last}
+  method: ia3
+  lr: 3.0e-3

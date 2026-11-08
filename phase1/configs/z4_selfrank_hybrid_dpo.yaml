@@ -1,0 +1,6 @@
+# Z4: Z2 with the DPO objective (reference = S2), same pairs.
+base: selfrank_hybrid.yaml
+id: Z4
+name: selfrank_hybrid_dpo
+rank:
+  dpo: true

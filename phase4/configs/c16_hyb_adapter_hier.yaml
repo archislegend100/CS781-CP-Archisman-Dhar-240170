@@ -1,0 +1,12 @@
+# C16: C15's end-to-end hierarchical model on LegalHybrid-SC + Houlsby adapters (C2's setup).
+base: c2_hyb_adapter.yaml
+id: C16
+name: cj_hyb_adapter_hier
+cj:
+  window: 1536
+  nwin: 3
+  batch: 2
+  accum: 8
+  evalbatch: 6
+  ckpt: true
+  trainprobs: false

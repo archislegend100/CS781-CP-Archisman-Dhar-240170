@@ -1,0 +1,19 @@
+base: base.yaml
+id: G1
+name: legalgpt
+model:
+  name: legalgpt
+  vocab: 5000
+  dim: 768
+  layers: 20
+  qheads: 12
+  kvheads: 4
+  ff: 2048
+  seq: 2048
+  pos: rope
+  ropebase: 10000.0
+  tie: true
+  dropout: 0.0
+  init: 0.02
+train:
+  minsplit: 4

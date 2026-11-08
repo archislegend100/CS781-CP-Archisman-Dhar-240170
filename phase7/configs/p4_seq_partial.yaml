@@ -1,0 +1,9 @@
+# P4: LegalSeq encoder (bidirectional) with partial / layer-wise fine-tuning (top 4 of 10 encoder layers + final norm).
+base: base.yaml
+id: P4
+name: pcr_seq_partial
+pcr:
+  backbone: {config: phase1/configs/legalseq.yaml, run: runs/legalseq, ckpt: best}
+  method: partial
+  partial: 4
+  lr: 5.0e-5

@@ -1,0 +1,13 @@
+# R3: LongLegal (L1) + QLoRA (Dettmers et al. 2023): frozen projections stored in NF4 with double-quantised scales,
+# LoRA r16/alpha32 on top; 2048-token chunks (symmetric local window 512 + bidirectional global layers) for more
+# document context per chunk.
+base: base.yaml
+id: R3
+name: rr_long_qlora
+rr:
+  backbone: {config: phase1/configs/longlegal.yaml, run: runs/longlegal, ckpt: best}
+  method: qlora
+  rank: 16
+  alpha: 32
+  window: 2048
+  lr: 3.0e-4

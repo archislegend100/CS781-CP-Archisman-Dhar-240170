@@ -1,0 +1,10 @@
+# N13: LegalGPT (S1), IA3 (Liu et al., NeurIPS 2022): learned rescaling of keys/values and FFN activations
+# (~50K trainable backbone params), unmasked, BIO token head.
+base: base.yaml
+id: N13
+name: ner_gpt_ia3
+ner:
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  method: ia3
+  unmask: all
+  lr: 3.0e-3

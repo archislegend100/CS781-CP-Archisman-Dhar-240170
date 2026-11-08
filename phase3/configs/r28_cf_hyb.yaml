@@ -1,0 +1,8 @@
+# R28: cross-fitted R2 (LegalHybrid-SC + rsLoRA, hierarchical context model): 5 fold models, each trained on the
+# labelled docs (train + dev) outside its fold for R2's best epoch count (4); every labelled doc predicted by the
+# model that did not see it; test = mean of the 5; transition scale + per-label biases tuned on all OOF predictions.
+base: base.yaml
+id: R28
+name: rr_hyb_cf
+cvjoin:
+  runs: [runs/rr/rr_hyb_cf_f0, runs/rr/rr_hyb_cf_f1, runs/rr/rr_hyb_cf_f2, runs/rr/rr_hyb_cf_f3, runs/rr/rr_hyb_cf_f4]

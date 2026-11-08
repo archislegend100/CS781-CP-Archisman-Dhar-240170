@@ -1,0 +1,12 @@
+# P17: LegalGPT-SC + LoRMA+ retriever trained end-to-end for chunk-level late interaction: each query / candidate is
+# represented by 3 random 512-token chunks and scored by symmetric chunk MaxSim inside InfoNCE (multiple-instance
+# contrastive learning); retrieval with MaxSim over up to 6 chunks per document.
+base: p11_gpt_lorma2.yaml
+id: P17
+name: pcr_gpt_mil
+pcr:
+  milk: 3
+  batch: 8
+  nhard: 2
+  nchunks: 6
+  epochs: 6

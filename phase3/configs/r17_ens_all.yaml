@@ -1,0 +1,8 @@
+# R17: everything refit on train + dev (R16 document tagger + R1/R2/R3 refits) with R15's dev-tuned member weights,
+# transition scale and per-label biases.
+base: base.yaml
+id: R17
+name: rr_ens_all
+ens:
+  runs: [runs/rr/rr_seq_wide_all, runs/rr/rr_gpt_lorma_all, runs/rr/rr_hyb_rslora_all, runs/rr/rr_long_qlora_all]
+  biasfrom: submissions/R15_rr_ens4/meta.json

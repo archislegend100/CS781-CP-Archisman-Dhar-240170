@@ -1,0 +1,7 @@
+# C20: C2 (LegalHybrid-SC + adapters), dev cross-fitted. Two dev-fold runs (train + one half of dev each, window augmentation over the windows ending 0 / 1024 / 2048
+# tokens before the end, TTA over the same windows); each dev case scored by the run that held it out, test = mean.
+base: base.yaml
+id: C20
+name: cj_hyb_adapter_dcv
+devjoin:
+  runs: [runs/cj/cj_hyb_adapter_dcv_df0, runs/cj/cj_hyb_adapter_dcv_df1]

@@ -1,0 +1,7 @@
+# M1: S2 decoded with minimum-Bayes-risk selection over greedy + 8 samples (utility ROUGE-L + 0.5 BLEU).
+base: legalhybrid_sc.yaml
+id: M1
+subname: s2_mbr8
+notrain: true
+generation:
+  mbr: 8

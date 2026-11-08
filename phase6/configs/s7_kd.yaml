@@ -1,0 +1,11 @@
+# S7: knowledge distillation (Hinton et al. 2015; word-level KD for generation, Kim & Rush 2016): student = first 8 of 20
+# LegalGPT-SC blocks (~54M), fully fine-tuned on alpha * CE(reference) + (1 - alpha) * T^2 * KL(teacher || student) over
+# the summary tokens; teacher = S1 (LoRMA+ LegalGPT-SC, same tokenisation).
+base: base.yaml
+id: S7
+name: sm_kd_student
+sm:
+  method: kd
+  layers: 8
+  lr: 1.0e-4
+  kd: {teacher: runs/sm/sm_gpt_lorma, T: 2.0, alpha: 0.5}

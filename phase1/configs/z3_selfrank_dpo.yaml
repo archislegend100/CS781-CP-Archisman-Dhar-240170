@@ -1,0 +1,11 @@
+# Z3: Z1 with the DPO objective (reference = S1), same pairs; greedy decoding of the best checkpoint.
+base: selfrank.yaml
+id: Z3
+name: selfrank_dpo
+rank:
+  dpo: true
+generation:
+  mode: greedy
+  repetition: 1.15
+  norepeat: 4
+  ckpt: best

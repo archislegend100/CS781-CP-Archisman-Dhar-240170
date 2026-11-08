@@ -1,0 +1,6 @@
+# N24: N22's wide bagged ensemble (10 fold PEFT models + 4 all-docs refits on shared S1/S3) + N23's document rules.
+base: n22_oof_wide.yaml
+id: N24
+name: ner_oof_wide_doc
+oof:
+  steps: [rolefix, boundary, gazetteer, witcue, vote, consistency, consistency_ci]

@@ -1,0 +1,18 @@
+# S3: LongLegal + QLoRA (NF4 4-bit frozen base, LoRA r16 / alpha 32): twice-longer chunks (2560 tokens) with
+# 1024-token chunk summaries in its 4096-token context -> fewer chunk boundaries (does chunking lose information?).
+base: base.yaml
+id: S3
+name: sm_long_qlora
+sm:
+  backbone: {config: phase1/configs/longlegal.yaml, run: runs/longlegal, ckpt: best}
+  method: qlora
+  rank: 16
+  alpha: 32
+  chunk: 2560
+  maxtarget: 1024
+  ctx: 4096
+  batch: 2
+  accum: 8
+  genbatch: 12
+  gen: {maxnew: 1024, minnew: 32, norepeat: 4, repetition: 1.1}
+  lr: 3.0e-4

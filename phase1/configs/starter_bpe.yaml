@@ -1,0 +1,18 @@
+# BASE-1: starter family with the Assignment-1 BPE. With |V| = 5000 the embedding shrinks by
+# 25.3M and 8 layers would give 34.9M (< 50M), so depth goes 8 -> 13 (52.96M). Everything else as BASE-0,
+# except bf16 in place of fp16 (same hardware path as all later runs).
+base: starter.yaml
+id: B1
+name: starter_bpe
+tokenizer:
+  source: assignment1
+  kind: a1bpe
+  path: assets/bpe_en.json
+  fp: 1928c1a635a95dd1
+model:
+  vocab: 5000
+  layers: 13
+train:
+  precision: bf16
+generation:
+  maxnew: 480

@@ -1,0 +1,9 @@
+# P30: final ensemble of CROSS-FITTED rankers only (P21, P16, P22, P18, P20, P26, P29). Their dev scores are out-of-fold, so
+# the fusion weights are chosen honestly; the raw cross-encoder runs (whose fusion weight was tuned on dev) are excluded --
+# their signal reaches the ensemble through P26 / P29.
+base: p27_ens_ce.yaml
+id: P30
+name: pcr_ens_final2
+rr:
+  ensruns: [runs/pcr/pcr_ltr_var1, runs/pcr/pcr_ltr3b, runs/pcr/pcr_ltr_var2, runs/pcr/pcr_ltr4, runs/pcr/pcr_ltr5,
+            runs/pcr/pcr_ltr_ce, runs/pcr/pcr_ltr_ce2]

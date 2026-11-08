@@ -1,0 +1,7 @@
+# S5: LegalGPT-SC + Pfeiffer adapters (one bottleneck adapter after each FFN only; Pfeiffer et al., EACL 2021).
+base: base.yaml
+id: S5
+name: sm_gpt_pfeiffer
+sm:
+  method: pfeiffer
+  bottleneck: 128

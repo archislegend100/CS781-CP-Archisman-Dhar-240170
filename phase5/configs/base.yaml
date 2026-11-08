@@ -1,0 +1,44 @@
+# Phase 5 (LSI, multi-label statute identification) defaults. Backbones are our Phase-1 checkpoints only.
+seed: 1234
+evaluator: evaluation_script/evaluate_phase5.py
+lsi:
+  repo: Exploration-Lab/CS-781-Capstone
+  root: data/phase5
+  files:
+    train: Phase_5_LSI/Train/train.json
+    dev: Phase_5_LSI/Train/dev.json
+    test: Phase_5_LSI/Test/test.json
+  tokdir: runs/lsi/tok
+  workers: 32
+  notest: true           # drop train/dev cases that also occur in test
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  window: 2048
+  take: first            # first | last | firstlast
+  head: lwan             # lwan (label-wise attention) | pool
+  loss: asl              # asl (asymmetric loss) | bce
+  gpos: 0.0
+  gneg: 4.0
+  clipm: 0.05
+  minpos: 5              # dev positives needed for a statute-specific threshold
+  method: lorma
+  unmask: all
+  rank: 8
+  alpha: 8
+  targets: [q, kv, o, up, down, inp, out]
+  bottleneck: 64
+  partial: 8
+  drop: 0.1
+  hdrop: 0.1
+  ckpt: false
+  lr: 5.0e-4
+  headlr: 1.0e-3
+  epochs: 3
+  batch: 4
+  accum: 4
+  evalbatch: 16
+  warmup: 0.06
+  wd: 0.01
+  clip: 1.0
+  precision: bf16
+  trainprobs: true
+  kd: {alpha: 0.5}

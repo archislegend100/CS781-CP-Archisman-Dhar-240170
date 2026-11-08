@@ -1,0 +1,16 @@
+# R9: knowledge distillation (Hinton et al. 2015). Teacher = the R8 ensemble (six Phase-1-based models, ~0.4B params
+# in total); student = the first 8 of 20 LegalGPT-SC layers (~54M), fully fine-tuned with
+# L = alpha * (CE + CRF + shift) + (1 - alpha) * T^2 * KL(teacher probs || student) + beta * MSE(projected student
+# sentence vector, R1's sentence vector) (intermediate-representation distillation, cf. TinyBERT, Jiao et al. 2020).
+base: base.yaml
+id: R9
+name: rr_kd_student
+rr:
+  method: kd
+  layers: 8
+  lr: 1.0e-4
+  kd: {teacher: runs/rr/teacher.pt, T: 2.0, alpha: 0.5, hidden: 1.0}
+teach:
+  out: runs/rr/teacher.pt
+ens:
+  runs: [runs/rr/rr_gpt_lorma, runs/rr/rr_hyb_rslora, runs/rr/rr_long_qlora, runs/rr/rr_seq_adalora, runs/rr/rr_gpt_full, runs/rr/rr_gpt_ia3]

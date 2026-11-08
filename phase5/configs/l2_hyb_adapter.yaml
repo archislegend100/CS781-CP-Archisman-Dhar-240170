@@ -1,0 +1,7 @@
+# L2: LegalHybrid-SC (S3) + Houlsby adapters, label-wise attention head, asymmetric loss.
+base: base.yaml
+id: L2
+name: lsi_hyb_adapter
+lsi:
+  backbone: {config: phase1/configs/legalhybrid_sc2.yaml, run: runs/legalhybrid_sc2, ckpt: last}
+  method: adapter

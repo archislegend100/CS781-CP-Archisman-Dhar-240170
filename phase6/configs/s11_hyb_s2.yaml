@@ -1,0 +1,13 @@
+# S11: abstract-then-extract fill on S2 (Houlsby adapters): generated summary kept as the backbone, topped up to a held-out-tuned word budget
+# with the most salient document sentences (overlap with the generated summary + opening/closing position prior), in
+# document order, trigram-blocked. No new training or generation (rebuilt from the saved outputs).
+base: base.yaml
+id: S11
+name: sm_hybrid_s2
+hyb:
+  fromrun: sm_hyb_houlsby
+  source: raw
+  lengrid: [1.0, 1.5, 2.0, 2.5, 3.0, 4.0]
+  posgrid: [0.0, 0.2]
+  minwords: 80
+  maxwords: 2000

@@ -1,0 +1,38 @@
+# Phase 6 (abstractive legal summarization) defaults. Generators are our Phase-1 checkpoints only.
+seed: 1234
+evaluator: evaluation_script/evaluate_phase6.py
+sm:
+  repo: Exploration-Lab/CS-781-Capstone
+  root: data/phase6
+  files:
+    train: Phase_6_Summ/Train/train.json
+    test: Phase_6_Summ/Test/test.json
+  datadir: runs/sm
+  workers: 32
+  valdocs: 100            # held-out split from train (no public dev set)
+  valseed: 781
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  chunk: 1280             # document tokens per chunk (sentence-aligned)
+  maxtarget: 640          # chunk-summary tokens kept for training
+  ctx: 2048
+  method: lorma
+  rank: 16
+  alpha: 16
+  targets: [q, kv, o, up, down, inp, out]
+  bottleneck: 64
+  lr: 5.0e-4
+  epochs: 2
+  batch: 4
+  accum: 4
+  evalbatch: 8
+  warmup: 0.05
+  wd: 0.01
+  clip: 1.0
+  precision: bf16
+  ckpt: true
+  genbatch: 24
+  emptykeep: 0.25        # fraction of empty-target chunks kept in training
+  gen: {maxnew: 640, minnew: 24, norepeat: 4, repetition: 1.1}
+  minwords: 80
+  maxwords: 1500
+  lengrid: [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0]

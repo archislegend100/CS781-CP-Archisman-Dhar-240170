@@ -1,0 +1,6 @@
+# R19: R18 with separate per-label biases for CL and IT (26 decision biases, tuned out-of-fold on all labelled docs).
+base: r18_cv_lex.yaml
+id: R19
+name: rr_cv_lex_dom
+seq:
+  perdomain: true

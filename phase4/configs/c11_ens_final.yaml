@@ -1,0 +1,7 @@
+# C11: final weighted ensemble of C1-C8 + the C10 student, weights and threshold tuned on dev.
+base: c9_ens.yaml
+id: C11
+name: cj_ens_final
+ens:
+  runs: [runs/cj/cj_gpt_lorma, runs/cj/cj_hyb_adapter, runs/cj/cj_long_adalora, runs/cj/cj_seq_bitfit, runs/cj/cj_gpt_full,
+         runs/cj/cj_gpt_unfreeze, runs/cj/cj_gpt_partial, runs/cj/cj_hier, runs/cj/cj_kd_student]

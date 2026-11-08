@@ -1,0 +1,21 @@
+# C8: hierarchical model over the WHOLE judgment: frozen chunk embeddings (512-token chunks from the end, up to 64) of all
+# four Phase-1 architectures -> relative-position embedding -> BiGRU -> attention pooling -> MLP (ILDC hierarchical
+# models, Malik et al. 2021; HAN, Yang et al. 2016); bag of 3 seeds; attention mass per document decile is reported.
+base: base.yaml
+id: C8
+name: cj_hier
+hier:
+  feats: [s1, s3, l1, q1]
+  region: all
+  proj: 256
+  hid: 128
+  fdrop: 0.3
+  sdrop: 0.3
+  posbuckets: 10
+  cw: 0.5
+  lr: 1.0e-3
+  wd: 0.01
+  batch: 32
+  epochs: 30
+  patience: 5
+  seeds: [1, 2, 3]

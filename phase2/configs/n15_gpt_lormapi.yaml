@@ -1,0 +1,12 @@
+# N15: LegalGPT (S1), LoRMA-pi (permutation-based rank inflation, Bihany et al. 2025) on q / kv / o, r = 8,
+# unmasked, BIO token head. Compare with N2 (LoRMA+).
+base: base.yaml
+id: N15
+name: ner_gpt_lormapi
+ner:
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  method: lormapi
+  rank: 8
+  pitargets: [q, kv, o]
+  unmask: all
+  lr: 5.0e-4

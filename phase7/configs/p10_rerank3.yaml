@@ -1,0 +1,5 @@
+# P10: P9 with word uni+bi+trigrams in the TF-IDF view (longer shared legal phrases; cf. n-gram BM25 in U-CREAT).
+base: p9_rerank.yaml
+id: P10
+name: pcr_rerank3
+rr: {ngram: 3}

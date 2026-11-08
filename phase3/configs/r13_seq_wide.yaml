@@ -1,0 +1,7 @@
+# R13: R12 with three more of our Phase-1 checkpoints as feature views (G1 general LegalGPT, H1 general LegalHybrid,
+# Z3 self-ranked LegalGPT): more diverse frozen representations of the same sentences.
+base: r12_seq4.yaml
+id: R13
+name: rr_seq_wide
+seq:
+  feats: [s1, s3, l1, q1, g1, h1, z3]

@@ -1,0 +1,8 @@
+# N22 member: S1 + LoRA r8/alpha16 refit on all 70 docs (epoch count = mean best epoch of its fold runs).
+base: n223_gptlora_fold1.yaml
+id: N227
+name: ner_gpt_lora_all
+ner:
+  trainfold: null
+  valfold: null
+  valdocs: 0

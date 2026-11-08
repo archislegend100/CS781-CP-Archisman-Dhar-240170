@@ -1,0 +1,7 @@
+# L20: L19's stacker over the original (first-window) members only -- isolates the stacking gain from the chunk gain.
+base: l19_stack.yaml
+id: L20
+name: lsi_stack_orig
+stack:
+  runs: [runs/lsi/lsi_gpt_full, runs/lsi/lsi_hyb_adapter, runs/lsi/lsi_kd_student, runs/lsi/lsi_gpt_lorma, runs/lsi/lsi_long_qlora,
+         runs/lsi/lsi_gpt_partial]

@@ -1,0 +1,6 @@
+# P26: P21's cross-fitted ranker with the P25 cross-encoder scores as an extra view (+ MaxSim retrievers if present).
+base: p21_ltr_var1.yaml
+id: P26
+name: pcr_ltr_ce
+rr:
+  extraruns: [runs/pcr/pcr_ce, runs/pcr/pcr_gpt_mil, runs/pcr/pcr_hyb_mil]

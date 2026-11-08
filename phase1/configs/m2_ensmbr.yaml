@@ -1,0 +1,9 @@
+# M2: E1 ensemble + MBR over greedy + 8 samples.
+base: legalhybrid_sc.yaml
+id: M2
+subname: ens_mbr8
+notrain: true
+generation:
+  ensemble: [runs/selfrank_dpo]
+  ensckpt: best
+  mbr: 8

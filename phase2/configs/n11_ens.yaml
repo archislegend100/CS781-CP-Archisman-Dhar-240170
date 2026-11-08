@@ -1,0 +1,14 @@
+# N11: ensemble of token-head runs (mean of per-token tag probabilities -> constrained Viterbi). The member subset
+# (<= 3 models, total params <= 300M) and the labels that get document-level consistency are chosen on the shared
+# held-out docs; members must be held-out runs (not all-docs ones).
+base: base.yaml
+id: N11
+name: ner_ens
+ner:
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+ens:
+  runs: [runs/ner/ner_gpt_lorma, runs/ner/ner_hyb_lora, runs/ner/ner_gpt_full, runs/ner/ner_kd_student, runs/ner/ner_long_adapter, runs/ner/ner_kd2_student]
+  maxmodels: 3
+  maxparams: 3.0e+8
+  mingain: 0.005
+  rolefix: false

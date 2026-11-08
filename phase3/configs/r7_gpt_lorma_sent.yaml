@@ -1,0 +1,8 @@
+# R7: context ablation -- R1's LoRMA+ on S1 but sentence-only: each sentence encoded alone, mean pooled, linear head
+# (no neighbouring sentences, no position, no BiGRU, no CRF).
+base: r1_gpt_lorma.yaml
+id: R7
+name: rr_gpt_lorma_sent
+rr:
+  mode: sent
+  maxsent: 128

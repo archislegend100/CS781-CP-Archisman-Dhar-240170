@@ -1,0 +1,7 @@
+# N12: N11's ensemble selection + role-cue APP/RESP re-labelling + document-level consistency, each switched on only
+# if it improves held-out macro-F1. Kept as a separate submission so N11 vs N12 measures the rules.
+base: n11_ens.yaml
+id: N12
+name: ner_ens_rules
+ens:
+  rolefix: true

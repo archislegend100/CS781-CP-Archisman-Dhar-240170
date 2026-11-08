@@ -1,0 +1,8 @@
+# C19: dev-weighted ensemble of every strong member (C11's members + hierarchical C15 / C16 + TTA C17 / C18).
+base: c9_ens.yaml
+id: C19
+name: cj_ens_all
+ens:
+  runs: [runs/cj/cj_gpt_lorma, runs/cj/cj_hyb_adapter, runs/cj/cj_gpt_full, runs/cj/cj_gpt_unfreeze, runs/cj/cj_gpt_partial,
+         runs/cj/cj_hier, runs/cj/cj_kd_student, runs/cj/cj_gpt_lorma_hier, runs/cj/cj_hyb_adapter_hier,
+         runs/cj/cj_gpt_lorma_tta, runs/cj/cj_hyb_adapter_tta]

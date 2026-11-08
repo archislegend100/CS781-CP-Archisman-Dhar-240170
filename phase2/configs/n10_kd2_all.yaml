@@ -1,0 +1,7 @@
+# N10: N9's student trained on all 70 docs, distilled from N8 (teacher also trained on all docs), for N9's best epoch count.
+base: n6_kd.yaml
+id: N10
+name: ner_kd2_student_all
+ner:
+  valdocs: 0
+  kd: {teacher: runs/ner/ner_gpt_full_all, T: 2.0, alpha: 0.5, unlabeled: 2000}

@@ -1,0 +1,15 @@
+# Optional legal-domain BPE (disabled by default). Train on the remote server only:
+#   python tokenizer.py phase1/configs/legalbpe.yaml train
+base: legalgpt.yaml
+id: X4
+name: legalgpt_bpe32k
+tokenizer:
+  source: phase1-legal
+  kind: a1bpe
+  path: assets/bpe_legal32k.json
+  fp: null
+  size: 32000
+  trainwords: 200000000
+  minfreq: 2
+model:
+  vocab: 32000

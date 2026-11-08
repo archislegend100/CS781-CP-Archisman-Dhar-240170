@@ -1,0 +1,12 @@
+# P11: stronger LoRMA+ retriever (LegalGPT-SC): 3 BM25 hard negatives per query from a deeper pool (50), 6 evenly spaced
+# chunks per document, 6 epochs, rank 16 (ANCE-style harder contrastive training).
+base: p1_gpt_lorma.yaml
+id: P11
+name: pcr_gpt_lorma2
+pcr:
+  rank: 16
+  alpha: 16
+  nhard: 3
+  hardk: 50
+  nchunks: 6
+  epochs: 6

@@ -1,0 +1,10 @@
+# L17: lsi_gpt_partial (already trained) re-scored with chunk-level predictions + document-level aggregation: consecutive windows from
+# the start of the document (up to 3), per-statute max over chunks (PS 11.1); per-statute thresholds re-tuned on dev.
+base: l6_gpt_partial.yaml
+id: L17
+name: lsi_gpt_partial_chunk
+lsi:
+  fromrun: lsi_gpt_partial
+  chunks: 3
+  agg: max
+  trainprobs: false

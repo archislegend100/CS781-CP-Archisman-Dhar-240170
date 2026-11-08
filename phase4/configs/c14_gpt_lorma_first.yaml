@@ -1,0 +1,5 @@
+# C14 (section analysis): C1 reading the FIRST 2048 tokens instead of the last.
+base: c1_gpt_lorma.yaml
+id: C14
+name: cj_gpt_lorma_first
+cj: {take: first, trainprobs: false}

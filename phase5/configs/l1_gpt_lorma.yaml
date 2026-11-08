@@ -1,0 +1,5 @@
+# L1: LegalGPT-SC (S1) + LoRMA+ (compulsory), label-wise attention head (one attention query per statute), asymmetric
+# loss, per-statute dev thresholds.
+base: base.yaml
+id: L1
+name: lsi_gpt_lorma

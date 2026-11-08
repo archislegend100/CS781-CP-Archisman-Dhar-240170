@@ -1,0 +1,22 @@
+# Same domain-adaptive continued pretraining for H1 (LegalHybrid).
+base: legalhybrid.yaml
+id: S2
+name: legalhybrid_sc
+data:
+  sources: [acts, highcourts, supremecourt, tribunals]
+  mixing: weights
+  weights: {acts: 0.05, highcourts: 0.05, supremecourt: 0.85, tribunals: 0.05}
+train:
+  init: runs/legalhybrid/ckpt/best.pt
+  lr: 1.5e-4
+  minlr: 1.5e-5
+  warmup: 50
+  tokens: 4.0e+8
+  sample: 0
+valid:
+  every: 200
+generation:
+  mode: greedy
+  repetition: 1.15
+  norepeat: 4
+  ckpt: last

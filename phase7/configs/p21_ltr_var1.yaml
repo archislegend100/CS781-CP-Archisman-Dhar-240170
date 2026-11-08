@@ -1,0 +1,5 @@
+# P21: ranker variant for the ensemble -- depth 200, 5 query neighbours, wider MLP, different seeds.
+base: p16_ltr3b.yaml
+id: P21
+name: pcr_ltr_var1
+rr: {depth: 200, qk: 5, hid: [64, 128], seeds: [11, 12, 13, 14, 15]}

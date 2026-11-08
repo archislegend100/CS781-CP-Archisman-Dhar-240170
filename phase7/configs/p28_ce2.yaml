@@ -1,0 +1,7 @@
+# P28: cross-encoder v2 -- 4 chunk pairs per (query, candidate) (more evidence per pair), 15 hard negatives per relevant
+# case, LoRMA+ r32, re-scores the top-100 of the P26 ranker; 6 dev checkpoints so it can be stopped early.
+base: p25_ce.yaml
+id: P28
+name: pcr_ce2
+pcr: {rank: 32, alpha: 32, epochs: 2}
+ce: {firststage: runs/pcr/pcr_ltr_ce, npairs: 4, nneg: 15, groups: 1, topk: 100, evals: 6}

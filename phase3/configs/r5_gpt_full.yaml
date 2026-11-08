@@ -1,0 +1,7 @@
+# R5: LegalGPT-SC (S1), full fine-tuning (reference point for "can PEFT approach full adaptation?").
+base: base.yaml
+id: R5
+name: rr_gpt_full
+rr:
+  method: full
+  lr: 3.0e-5

@@ -1,0 +1,11 @@
+# P9: re-ranking on top of the trained retrievers: TF-IDF uni+bigram cosine view, CSLS hubness correction, weighted
+# fusion (BM25 + TF-IDF + dense members), candidate-graph pseudo-relevance feedback; all tuned on dev, 5-fold honest estimate.
+base: base.yaml
+id: P9
+name: pcr_rerank
+rr:
+  ngram: 2
+  runs: [runs/pcr/pcr_gpt_lorma, runs/pcr/pcr_gpt_full, runs/pcr/pcr_long_qlora, runs/pcr/pcr_kd_student, runs/pcr/pcr_hyb_ia3,
+         runs/pcr/pcr_gpt_prompt, runs/pcr/pcr_seq_partial]
+  graph: [pcr_gpt_lorma, pcr_gpt_full]
+  wgrid: [0.0, 0.5, 1.5, 2.0, 3.0]

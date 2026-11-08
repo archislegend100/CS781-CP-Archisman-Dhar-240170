@@ -1,0 +1,5 @@
+# C1: LegalGPT-SC (S1) + LoRMA+ (compulsory; Bihany, Patel, Modi 2025), last 2048 tokens, unmasked, attention + mean
+# pooling, MLP head; dev-tuned decision threshold.
+base: base.yaml
+id: C1
+name: cj_gpt_lorma

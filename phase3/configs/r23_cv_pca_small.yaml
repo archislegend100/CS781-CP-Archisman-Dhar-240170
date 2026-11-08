@@ -1,0 +1,10 @@
+# R23: R22 with a smaller, more regularised tagger (projection 256, BiLSTM 128 x 2, feature dropout 0.6) and
+# 5 seeds per fold (25 models): lower variance for a small training set.
+base: r22_cv_pca.yaml
+id: R23
+name: rr_cv_pca_small
+seq:
+  proj: 256
+  hid: 128
+  fdrop: 0.6
+  seeds: [1, 2, 3, 4, 5]

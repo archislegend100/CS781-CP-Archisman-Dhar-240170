@@ -1,0 +1,6 @@
+# R31: R30 with per-domain (CL / IT) decision biases, tuned on all OOF predictions.
+base: r30_cvens.yaml
+id: R31
+name: rr_cvens_dom
+ens:
+  perdomain: true

@@ -1,0 +1,9 @@
+# L25: label-correlation stacker (as L19) over the dev-cross-fitted, chunked and original members, 5-fold cross-fitted on dev.
+base: l19_stack.yaml
+id: L25
+name: lsi_stack_dcv
+stack:
+  runs: [runs/lsi/lsi_kd_dcv, runs/lsi/lsi_gpt_full_dcv, runs/lsi/lsi_hyb_adapter_dcv,
+         runs/lsi/lsi_gpt_full_chunk, runs/lsi/lsi_hyb_adapter_chunk, runs/lsi/lsi_kd_student_chunk, runs/lsi/lsi_gpt_lorma_chunk,
+         runs/lsi/lsi_long_qlora_chunk, runs/lsi/lsi_gpt_partial_chunk, runs/lsi/lsi_gpt_full, runs/lsi/lsi_hyb_adapter,
+         runs/lsi/lsi_kd_student, runs/lsi/lsi_long_qlora]

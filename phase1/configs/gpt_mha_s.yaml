@@ -1,0 +1,8 @@
+# Attention ablation: MHA (kv = q = 12 heads) vs gpt_rope_s GQA (kv = 4). ff 2048 -> 1728 keeps
+# parameters matched (130.68M vs 129.70M), so the comparison is at equal size and budget.
+base: gpt_rope_s.yaml
+id: A3
+name: gpt_mha_s
+model:
+  kvheads: 12
+  ff: 1728

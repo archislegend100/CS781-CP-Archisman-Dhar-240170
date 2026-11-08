@@ -1,0 +1,7 @@
+# P8: multi-retriever fusion -- BM25 + the dense members P1-P7, per-query z-normalised scores, weights tuned on dev F1@7.
+base: base.yaml
+id: P8
+name: pcr_fuse
+ens:
+  runs: [runs/pcr/pcr_gpt_lorma, runs/pcr/pcr_hyb_ia3, runs/pcr/pcr_long_qlora, runs/pcr/pcr_seq_partial, runs/pcr/pcr_gpt_full,
+         runs/pcr/pcr_gpt_prompt, runs/pcr/pcr_kd_student]

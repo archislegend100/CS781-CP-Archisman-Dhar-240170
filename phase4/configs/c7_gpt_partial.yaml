@@ -1,0 +1,8 @@
+# C7: LegalGPT-SC (S1) partial / layer-wise fine-tuning: only the top 8 of 20 blocks (+ final norm) are trained.
+base: base.yaml
+id: C7
+name: cj_gpt_partial
+cj:
+  method: partial
+  partial: 8
+  lr: 5.0e-5

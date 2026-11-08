@@ -1,0 +1,15 @@
+# L3: LongLegal (L1) + QLoRA (NF4 4-bit frozen base with double-quantised scales, LoRA r16 on top), 4096-token window.
+base: base.yaml
+id: L3
+name: lsi_long_qlora
+lsi:
+  backbone: {config: phase1/configs/longlegal.yaml, run: runs/longlegal, ckpt: best}
+  method: qlora
+  rank: 16
+  alpha: 32
+  window: 4096
+  batch: 2
+  accum: 8
+  evalbatch: 8
+  ckpt: true
+  lr: 3.0e-4

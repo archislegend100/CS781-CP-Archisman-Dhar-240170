@@ -1,0 +1,7 @@
+# C23: C5 (LegalGPT-SC full fine-tuning), dev cross-fitted. Two dev-fold runs (train + one half of dev each, window augmentation over the windows ending 0 / 1024 / 2048
+# tokens before the end, TTA over the same windows); each dev case scored by the run that held it out, test = mean.
+base: base.yaml
+id: C23
+name: cj_gpt_full_dcv
+devjoin:
+  runs: [runs/cj/cj_gpt_full_dcv_df0, runs/cj/cj_gpt_full_dcv_df1]

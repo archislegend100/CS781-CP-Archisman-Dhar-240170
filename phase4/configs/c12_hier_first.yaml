@@ -1,0 +1,5 @@
+# C12 (section analysis): C8 restricted to the FIRST half of each judgment's chunks.
+base: c8_hier.yaml
+id: C12
+name: cj_hier_first
+hier: {region: first}

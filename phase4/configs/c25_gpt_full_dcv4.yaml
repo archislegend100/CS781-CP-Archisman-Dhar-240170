@@ -1,0 +1,9 @@
+# C25: LegalGPT-SC full fine-tuning (C23's recipe) with 4 dev folds (train + 75% of dev per run, test = mean of 4 models),
+# in-distribution dev docs oversampled x3 and training docs reweighted by p_dev / p_train of their length bucket
+# (covariate-shift importance weighting, Shimodaira 2000), window augmentation + TTA over windows ending 0/1024/2048
+# tokens before the end. Each dev case is scored by the fold model that held it out.
+base: base.yaml
+id: C25
+name: cj_gpt_full_dcv4
+devjoin:
+  runs: [runs/cj/cj_gpt_full_dcv4_df0, runs/cj/cj_gpt_full_dcv4_df1, runs/cj/cj_gpt_full_dcv4_df2, runs/cj/cj_gpt_full_dcv4_df3]

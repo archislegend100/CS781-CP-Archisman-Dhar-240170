@@ -1,0 +1,7 @@
+# N21: N20 (OOF-calibrated, 4 fold models + 3 all-docs refits) plus a per-label span-confidence threshold chosen
+# out-of-fold: predicted spans whose mean ensemble tag probability is below the label's threshold are dropped.
+base: n20_oof_refit.yaml
+id: N21
+name: ner_oof_conf
+oof:
+  conf: true

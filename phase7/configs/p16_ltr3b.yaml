@@ -1,0 +1,5 @@
+# P16: P15 with a deeper candidate list (150) and 20 query neighbours.
+base: p15_ltr3.yaml
+id: P16
+name: pcr_ltr3b
+rr: {depth: 150, qk: 20}

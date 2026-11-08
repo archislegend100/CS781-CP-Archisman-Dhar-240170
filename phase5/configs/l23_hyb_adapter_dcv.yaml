@@ -1,0 +1,8 @@
+# L23: L2 (LegalHybrid-SC + adapters, LWAN + ASL), dev cross-fitted -- two runs, each trained on train + one half of dev (dev cases that also occur in test are
+# removed first) and selected on the other half; chunk aggregation (3 x 2048, per-statute max) at prediction; every dev
+# case scored by the run that held it out (honest per-statute thresholds), test = mean of the two runs.
+base: base.yaml
+id: L23
+name: lsi_hyb_adapter_dcv
+devjoin:
+  runs: [runs/lsi/lsi_hyb_adapter_dcv_df0, runs/lsi/lsi_hyb_adapter_dcv_df1]

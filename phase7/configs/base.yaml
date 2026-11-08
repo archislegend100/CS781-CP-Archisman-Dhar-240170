@@ -1,0 +1,38 @@
+# Phase 7 (prior case retrieval) defaults. Encoders are our Phase-1 checkpoints only; BM25 is a classical lexical scorer.
+seed: 1234
+evaluator: evaluation_script/evaluate_phase7.py
+pcr:
+  repo: Exploration-Lab/CS-781-Capstone
+  root: data/phase7
+  files:
+    train_queries: Phase_7_PCR/Train/train.json
+    train_candidates: Phase_7_PCR/Train/train_candidates.json
+    dev_queries: Phase_7_PCR/Dev/dev.json
+    dev_candidates: Phase_7_PCR/Dev/dev_candidates.json
+    test_queries: Phase_7_PCR/Test/test.json
+    test_candidates: Phase_7_PCR/Test/test_candidates.json
+  datadir: runs/pcr
+  workers: 32
+  k1: 1.2
+  b: 0.75
+  bigrams: true
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  window: 512           # tokens per chunk
+  nchunks: 4            # evenly spaced chunks per document (mean of chunk embeddings)
+  hardk: 30             # BM25 hard-negative pool per query
+  nhard: 1              # hard negatives per query in each batch
+  method: lorma
+  unmask: all
+  rank: 8
+  alpha: 8
+  targets: [q, kv, o, up, down, inp, out]
+  partial: 8
+  drop: 0.0
+  ckpt: true
+  lr: 3.0e-4
+  headlr: 1.0e-3
+  epochs: 4
+  batch: 16
+  wd: 0.01
+  precision: bf16
+  kd: {T: 1.0, alpha: 0.5}

@@ -1,0 +1,9 @@
+# C24: dev-weighted ensemble of the dev-cross-fitted members (C20-C23, honest out-of-fold on all of dev) and the strong
+# earlier members (C1, C2, C5, C7, C8, C17, C18); member weights and threshold tuned on all 3.5k dev cases.
+base: c9_ens.yaml
+id: C24
+name: cj_ens_dcv
+ens:
+  runs: [runs/cj/cj_hyb_adapter_dcv, runs/cj/cj_gpt_lorma_dcv, runs/cj/cj_gpt_partial_dcv, runs/cj/cj_gpt_full_dcv,
+         runs/cj/cj_gpt_lorma, runs/cj/cj_hyb_adapter, runs/cj/cj_gpt_full, runs/cj/cj_gpt_partial, runs/cj/cj_hier,
+         runs/cj/cj_gpt_lorma_tta, runs/cj/cj_hyb_adapter_tta]

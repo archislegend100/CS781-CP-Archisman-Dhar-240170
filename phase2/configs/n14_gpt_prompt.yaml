@@ -1,0 +1,11 @@
+# N14: LegalGPT (S1), prompt tuning (Lester et al., EMNLP 2021): 32 soft-prompt vectors initialised from vocabulary
+# embeddings, backbone frozen, unmasked (every token sees the prompt), BIO token head.
+base: base.yaml
+id: N14
+name: ner_gpt_prompt
+ner:
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  method: prompt
+  prompt: 32
+  unmask: all
+  headlr: 5.0e-3

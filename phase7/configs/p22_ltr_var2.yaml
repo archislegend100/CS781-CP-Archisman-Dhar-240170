@@ -1,0 +1,5 @@
+# P22: ranker variant for the ensemble -- depth 75, 15 query neighbours, small MLP, different seeds.
+base: p16_ltr3b.yaml
+id: P22
+name: pcr_ltr_var2
+rr: {depth: 75, qk: 15, hid: [16, 32], seeds: [21, 22, 23, 24, 25]}

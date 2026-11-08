@@ -1,0 +1,50 @@
+# Phase 3 (rhetorical roles) defaults. Backbones are the trained Phase-1 checkpoints; nothing external is loaded.
+seed: 1234
+evaluator: evaluation_script/evaluate_phase3.py
+rr:
+  repo: Exploration-Lab/CS-781-Capstone
+  root: data/phase3
+  files:
+    CL_train: Phase_3_RR/Train/CL_train.json
+    CL_dev: Phase_3_RR/Train/CL_dev.json
+    IT_train: Phase_3_RR/Train/IT_train.json
+    IT_dev: Phase_3_RR/Train/IT_dev.json
+    labels: Phase_3_RR/Train/label_vocab.json
+    CL_test: Phase_3_RR/Test/CL_test.json
+    IT_test: Phase_3_RR/Test/IT_test.json
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  # hierarchical context model
+  mode: ctx            # ctx = packed sentence chunks + BiGRU + CRF; sent = sentence-only ablation
+  window: 1024         # tokens per chunk of consecutive sentences
+  overlap: 0.5
+  maxsent: 128         # tokens kept per sentence
+  pos: true
+  posbuckets: 10
+  domain: true
+  gru: 256
+  crf: true
+  shift: 0.3           # auxiliary label-shift loss weight (Malik et al. 2022)
+  sdrop: 0.2
+  # adaptation (same keys as Phase 2's ner.make)
+  method: lorma
+  unmask: all
+  rank: 8
+  alpha: 8
+  targets: [q, kv, o, up, down, inp, out]
+  bottleneck: 64
+  partial: 8
+  drop: 0.1
+  ckpt: false
+  # optimisation
+  cw: 0.5
+  lr: 5.0e-4
+  headlr: 1.0e-3
+  epochs: 15
+  patience: 4
+  accum: 8
+  batch: 32
+  warmup: 0.1
+  wd: 0.01
+  clip: 1.0
+  precision: bf16
+  kd: {T: 2.0, alpha: 0.5, hidden: 0.0}

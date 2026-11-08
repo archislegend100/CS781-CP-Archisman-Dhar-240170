@@ -1,0 +1,9 @@
+# L18: weighted ensemble of the chunk-aggregated members (L12-L17) and the original members (L1-L3, L5, L6, L9); weights and
+# per-statute thresholds tuned on dev.
+base: base.yaml
+id: L18
+name: lsi_ens_chunk
+ens:
+  runs: [runs/lsi/lsi_gpt_full_chunk, runs/lsi/lsi_hyb_adapter_chunk, runs/lsi/lsi_kd_student_chunk, runs/lsi/lsi_gpt_lorma_chunk,
+         runs/lsi/lsi_long_qlora_chunk, runs/lsi/lsi_gpt_partial_chunk, runs/lsi/lsi_gpt_full, runs/lsi/lsi_hyb_adapter,
+         runs/lsi/lsi_kd_student, runs/lsi/lsi_gpt_lorma, runs/lsi/lsi_long_qlora, runs/lsi/lsi_gpt_partial]

@@ -1,0 +1,8 @@
+# E1: ensemble of S2 (LegalHybrid-SC, last) and Z3 (self-ranked LegalGPT-SC, best); mean of member log-probs.
+base: legalhybrid_sc.yaml
+id: E1
+subname: ens_s2_z3
+notrain: true
+generation:
+  ensemble: [runs/selfrank_dpo]
+  ensckpt: best

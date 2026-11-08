@@ -1,0 +1,12 @@
+# Z12: MBR over Z11 (embedding-reward self-ranked) + S3 candidates, 64/prompt, embedding utility on Z11.
+base: legalgpt.yaml
+notrain: true
+id: Z12
+subname: pool64_embdpo
+pool:
+  tags: [ze, zeb, s3, s3b]
+  wr: 0.0
+  wb: 0.0
+  we: 1.0
+  embrun: runs/selfrank_emb
+  embckpt: best

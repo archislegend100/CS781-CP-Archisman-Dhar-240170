@@ -1,0 +1,11 @@
+# R2: LegalHybrid-SC (S3) + rank-stabilised LoRA (Kalajdzievski 2023): scale alpha/sqrt(r) = 16/4, r = 16;
+# attention layers unmasked (Hyena mixers stay causal); same hierarchical context model as R1.
+base: base.yaml
+id: R2
+name: rr_hyb_rslora
+rr:
+  backbone: {config: phase1/configs/legalhybrid_sc2.yaml, run: runs/legalhybrid_sc2, ckpt: last}
+  method: rslora
+  rank: 16
+  alpha: 16
+  lr: 2.0e-4

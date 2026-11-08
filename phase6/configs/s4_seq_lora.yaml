@@ -1,0 +1,15 @@
+# S4: LegalSeq encoder-decoder + LoRA (r16 / alpha 32) on encoder self-attention, decoder self- and cross-attention and FFNs;
+# 1024-token source chunks, 448-token chunk summaries (its pretraining lengths: 1280 / 448).
+base: base.yaml
+id: S4
+name: sm_seq_lora
+sm:
+  backbone: {config: phase1/configs/legalseq.yaml, run: runs/legalseq, ckpt: best}
+  method: lora
+  rank: 16
+  alpha: 32
+  chunk: 1024
+  maxtarget: 448
+  batch: 8
+  accum: 2
+  gen: {maxnew: 448, minnew: 24, norepeat: 4, repetition: 1.1}

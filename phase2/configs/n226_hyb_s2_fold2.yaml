@@ -1,0 +1,5 @@
+# N22 member: N172 (hybrid LoRA on S3, trained on fold2) with another seed.
+base: n172_hyb_fold2.yaml
+id: N226
+name: ner_hyb_lora_s2_f2
+seed: 7

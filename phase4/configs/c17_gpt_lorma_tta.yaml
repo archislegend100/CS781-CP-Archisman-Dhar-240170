@@ -1,0 +1,9 @@
+# C17: C1's trained model scored with multi-window test-time augmentation: mean P(1) over the final 2048-token window and
+# the windows ending 1024 / 2048 tokens earlier; dev-tuned threshold. No training.
+base: c1_gpt_lorma.yaml
+id: C17
+name: cj_gpt_lorma_tta
+cj:
+  fromrun: cj_gpt_lorma
+  tta: [0, 1024, 2048]
+  trainprobs: false

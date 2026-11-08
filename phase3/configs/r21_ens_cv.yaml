@@ -1,0 +1,10 @@
+# R21: R18 (cross-fitted, honest out-of-fold on dev) blended with the fine-tuned context models R1-R6; member
+# weights, transition scale and per-label biases tuned on the official dev set.
+base: base.yaml
+id: R21
+name: rr_ens_cv
+ens:
+  runs: [runs/rr/rr_cv_lex, runs/rr/rr_gpt_lorma, runs/rr/rr_hyb_rslora, runs/rr/rr_long_qlora,
+         runs/rr/rr_seq_adalora, runs/rr/rr_gpt_full, runs/rr/rr_gpt_ia3]
+  tuneweights: true
+  passes: 2

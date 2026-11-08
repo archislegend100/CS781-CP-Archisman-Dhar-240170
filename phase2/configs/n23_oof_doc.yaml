@@ -1,0 +1,8 @@
+# N23: N21 + document-level rules chosen out-of-fold: prosecution-witness cue (PW-n -> WIT), two-stage majority
+# label over case-folded mentions (Krishnan & Manning 2006), and case-insensitive consistency (cause-title capitals
+# <-> body mentions; Kalamkar et al. 2022). Each rule is kept only where it raises OOF F1 (per label where possible).
+base: n21_oof_conf.yaml
+id: N23
+name: ner_oof_doc
+oof:
+  steps: [rolefix, boundary, gazetteer, witcue, vote, consistency, consistency_ci]

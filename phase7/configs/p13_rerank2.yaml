@@ -1,0 +1,8 @@
+# P13: P9's re-ranker with the stronger P11 retriever added as a view and as a graph.
+base: p9_rerank.yaml
+id: P13
+name: pcr_rerank2
+rr:
+  runs: [runs/pcr/pcr_gpt_lorma2, runs/pcr/pcr_gpt_lorma, runs/pcr/pcr_gpt_full, runs/pcr/pcr_long_qlora, runs/pcr/pcr_kd_student,
+         runs/pcr/pcr_hyb_ia3, runs/pcr/pcr_gpt_prompt, runs/pcr/pcr_seq_partial]
+  graph: [pcr_gpt_lorma2, pcr_gpt_lorma, pcr_gpt_full]

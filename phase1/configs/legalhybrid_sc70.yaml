@@ -1,0 +1,6 @@
+# Replay-ratio ablation: H1 adapted with SC 0.70 / 0.10 each other source (S2 uses 0.85 / 0.05).
+base: legalhybrid_sc.yaml
+id: P1
+name: legalhybrid_sc70
+data:
+  weights: {acts: 0.10, highcourts: 0.10, supremecourt: 0.70, tribunals: 0.10}

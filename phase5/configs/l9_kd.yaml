@@ -1,0 +1,13 @@
+# L9: knowledge distillation (Hinton et al. 2015) -- teacher = the L8 ensemble, student = first 8 of 20 LegalGPT-SC blocks
+# (~54M), L = alpha * ASL(gold) + (1 - alpha) * BCE(student, teacher probabilities).
+base: base.yaml
+id: L9
+name: lsi_kd_student
+lsi:
+  method: kd
+  layers: 8
+  lr: 1.0e-4
+  kd: {teacher: runs/lsi/teacher.pt, alpha: 0.5}
+teach:
+  fromrun: lsi_ens
+  out: runs/lsi/teacher.pt

@@ -1,0 +1,541 @@
+# Phase-1 experiment registry. IDs were frozen after the assignment audit, starter review, literature
+# review and architecture review. Codabench scores live in scores.json (python scores.py add/show); none
+# are recorded yet. GPU-hour figures are planning estimates from FLOPs,
+# not measurements.
+# Submission order: B1 B2 G1 Q1 L1 H1 A1 A2 A3 D1 ... Z1 (self-ranking always last). B0 is a reference
+# reproduction; the challenge rules say starter predictions do not count toward the minimum.
+
+# Unless stated otherwise: tokenizer assignment1-bpe (assets/bpe_en.json, fp 1928c1a635a95dd1, |V_B| 5000,
+# M_F 4740); initialization random N(0, 0.02) with residual output projections N(0, 0.02/sqrt(2L)), no
+# pretrained weights; compliance: from scratch, official Phase-1 train files only, 50M <= params <= 300M.
+
+experiments:
+  - id: B0
+    name: starter
+    enabled: true
+    counts_toward_minimum: false
+    category: starter
+    hypothesis: The custom trainer reproduces the official starter (GPT-2 tokenizer, 8L/8H/560d, SC only, 200M tokens).
+    source: official starter notebook
+    architecture: GPT-2 layout (learned positions, pre-LN, GELU MLP, biased MHA, dropout 0.1, tied)
+    tokenizer: gpt2 (openai-community/gpt2 tokenizer files; tokenizer only, no weights)
+    initialization: random N(0, 0.02), c_proj N(0, 0.02/sqrt(2L)) (HF GPT-2 scheme)
+    params: 59455760
+    context: 2048
+    position: learned absolute
+    attention: MHA 8 heads
+    training_data: supremecourt only
+    data_mixture: natural
+    tokens: 2.0e8
+    generation: sample T=0.1 top-p 0.95, 384 new tokens
+    compliance: from scratch; official SC file only
+    gpu_hours_est: 1
+    config: phase1/configs/starter.yaml
+    run: runs/starter
+    prediction: submissions/B0_starter/prediction.json
+    zip: submissions/B0_starter/submission.zip
+    scores: null
+    notes: reference only
+
+  - id: B1
+    name: starter_bpe
+    enabled: true
+    category: tokenizer
+    hypothesis: The Assignment-1 byte-level BPE (5k vocab) is a usable legal tokenizer. It changes BERTScore relative to B0 even though each token covers less text (about 2.2 vs about 1.3 tokens/word).
+    source: B0 + Assignment 1
+    architecture: B0 layout, 13 layers (8 would give 34.9M < 50M after the embedding shrinks by 25.3M)
+    tokenizer: assignment1-bpe
+    initialization: random N(0, 0.02), residual /sqrt(2L)
+    params: 52964240
+    context: 2048
+    position: learned absolute
+    attention: MHA 8 heads
+    training_data: supremecourt only
+    data_mixture: natural
+    tokens: 2.0e8
+    generation: sample T=0.1 top-p 0.95, 480 new tokens max
+    compliance: from scratch; A1 BPE explicitly allowed
+    gpu_hours_est: 1
+    config: phase1/configs/starter_bpe.yaml
+    run: runs/starter_bpe
+    prediction: submissions/B1_starter_bpe/prediction.json
+    zip: submissions/B1_starter_bpe/submission.zip
+    scores: null
+    notes: token-budget (compute) matched to B0, not word matched
+
+  - id: B2
+    name: starter_improved
+    enabled: true
+    category: training
+    hypothesis: Training on all four sources (temperature mixing, alpha 0.7) beats Supreme Court only, because the test prompts are expected to come from all four sources.
+    source: B1
+    architecture: same as B1
+    tokenizer: assignment1-bpe
+    params: 52964240
+    context: 2048
+    position: learned absolute
+    attention: MHA 8 heads
+    training_data: acts, highcourts, supremecourt, tribunals
+    data_mixture: temperature alpha 0.7
+    tokens: 2.0e8
+    generation: as B1
+    gpu_hours_est: 1
+    config: phase1/configs/starter_improved.yaml
+    run: runs/starter_improved
+    prediction: submissions/B2_starter_improved/prediction.json
+    zip: submissions/B2_starter_improved/submission.zip
+    scores: null
+    notes: single controlled change (data mixing)
+
+  - id: G1
+    name: legalgpt
+    enabled: true
+    category: architecture
+    hypothesis: A modern pre-norm decoder (RMSNorm, RoPE, GQA 12/4, SwiGLU, tied) at about 130M parameters trained on 2B tokens clearly beats the starter family.
+    source: LLaMA-style design choices; MobileLLM (deep-thin, GQA, embedding sharing at sub-billion scale)
+    architecture: decoder-only, 20 x 768, ff 2048
+    tokenizer: assignment1-bpe
+    params: 129700608
+    context: 2048
+    position: rope (base 1e4)
+    attention: GQA 12 query / 4 KV heads, SDPA causal
+    training_data: all four sources
+    data_mixture: temperature alpha 0.7
+    tokens: 2.0e9
+    generation: sample T=0.6 top-p 0.9 repetition 1.1
+    gpu_hours_est: 9
+    config: phase1/configs/legalgpt.yaml
+    run: runs/legalgpt
+    prediction: submissions/G1_legalgpt/prediction.json
+    zip: submissions/G1_legalgpt/submission.zip
+    scores: null
+
+  - id: Q1
+    name: legalseq
+    enabled: true
+    category: architecture
+    hypothesis: A bidirectional encoder over the prompt plus a causal decoder, trained on (prefix, continuation) pairs that match the task format, is competitive despite getting loss only on the target tokens.
+    source: T5 / BART encoder-decoder; Assignment-2 teacher forcing
+    architecture: encoder 10 x 768 + decoder 10 x 768 with cross-attention, ff 2048, tied embeddings
+    tokenizer: assignment1-bpe
+    params: 145437696
+    context: src 1280 / tgt 448
+    position: rope in self-attention (encoder and decoder), none in cross-attention
+    attention: GQA 12/4; bidirectional encoder, causal decoder, cross-attention
+    training_data: all four sources; document-contained prefix/continuation pairs
+    data_mixture: temperature alpha 0.7
+    tokens: 2.0e9 processed (src + tgt); about 26% are target tokens
+    generation: as G1
+    gpu_hours_est: 8
+    config: phase1/configs/legalseq.yaml
+    run: runs/legalseq
+    prediction: submissions/Q1_legalseq/prediction.json
+    zip: submissions/Q1_legalseq/submission.zip
+    scores: null
+
+  - id: L1
+    name: longlegal
+    enabled: true
+    category: architecture
+    hypothesis: Sliding-window attention (w=512) with a dense global layer every 4th layer trains at 4096 context for about the cost of 2048 dense. It matches LegalGPT on 512-to-128 continuation and gives a longer-context base for downstream phases.
+    source: Longformer, Mistral sliding window, Gemma-2 local/global interleaving
+    architecture: decoder-only 20 x 768, layers 4/8/12/16/20 global, others local
+    tokenizer: assignment1-bpe
+    params: 129700608
+    context: 4096
+    position: rope
+    attention: GQA 12/4; blockwise local causal window 512 (O(T w)); dense causal global layers
+    training_data: all four sources
+    data_mixture: temperature alpha 0.7
+    tokens: 2.0e9
+    generation: as G1
+    gpu_hours_est: 9
+    config: phase1/configs/longlegal.yaml
+    run: runs/longlegal
+    prediction: submissions/L1_longlegal/prediction.json
+    zip: submissions/L1_longlegal/submission.zip
+    scores: null
+
+  - id: H1
+    name: legalhybrid
+    enabled: true
+    category: architecture
+    hypothesis: Hyena-style gated long convolutions in 15 of 20 layers, plus 5 attention layers, model legal text nearly as well as full attention, which tests whether attention is needed in every layer.
+    source: Hyena, H3, Griffin/Based hybrids
+    architecture: 20 x 768; layers 4/8/12/16/20 attention, others order-2 Hyena mixers (short conv k=3, implicit FFT long filter), ff 1792 (parameter-matched)
+    tokenizer: assignment1-bpe
+    params: 130684608
+    context: 2048
+    position: rope in attention layers; implicit filter positions in mixers
+    attention: GQA 12/4 in 5 layers
+    training_data: all four sources
+    data_mixture: temperature alpha 0.7
+    tokens: 2.0e9
+    generation: as G1 (mixers decode incrementally from cached k*v history)
+    gpu_hours_est: 10
+    config: phase1/configs/legalhybrid.yaml
+    run: runs/legalhybrid
+    prediction: submissions/H1_legalhybrid/prediction.json
+    zip: submissions/H1_legalhybrid/submission.zip
+    scores: null
+
+  - id: A1
+    name: gpt_rope_s
+    enabled: true
+    category: position
+    hypothesis: Control run for the position and attention ablations (LegalGPT at 0.5B tokens).
+    source: G1
+    architecture: as G1
+    tokenizer: assignment1-bpe
+    params: 129700608
+    context: 2048
+    position: rope
+    attention: GQA 12/4
+    training_data: all four sources
+    data_mixture: temperature alpha 0.7
+    tokens: 5.0e8
+    generation: as G1
+    gpu_hours_est: 2.3
+    config: phase1/configs/gpt_rope_s.yaml
+    run: runs/gpt_rope_s
+    prediction: submissions/A1_gpt_rope_s/prediction.json
+    zip: submissions/A1_gpt_rope_s/submission.zip
+    scores: null
+
+  - id: A2
+    name: gpt_alibi_s
+    enabled: true
+    category: position
+    hypothesis: ALiBi's recency bias suits local legal phrasing, but RoPE is better when a continuation must reuse names, sections and citations from far back in a 1k-token prompt. Only the position method differs from A1.
+    source: Press et al. 2022
+    architecture: as A1
+    tokenizer: assignment1-bpe
+    params: 129700608
+    context: 2048
+    position: alibi
+    attention: GQA 12/4 (KV expanded for the biased kernel)
+    training_data: all four sources
+    data_mixture: temperature alpha 0.7
+    tokens: 5.0e8
+    generation: as G1
+    gpu_hours_est: 2.5
+    config: phase1/configs/gpt_alibi_s.yaml
+    run: runs/gpt_alibi_s
+    prediction: submissions/A2_gpt_alibi_s/prediction.json
+    zip: submissions/A2_gpt_alibi_s/submission.zip
+    scores: null
+
+  - id: A3
+    name: gpt_mha_s
+    enabled: true
+    category: attention
+    hypothesis: At matched parameters (130.7M vs 129.7M), MHA and GQA 12/4 reach similar validation CE. GQA's 3x smaller KV cache (1.25 vs 3.75 GiB at generation batch 32, 2048 context) then comes almost free.
+    source: Ainslie et al. 2023
+    architecture: as A1 with kvheads 12 and ff 1728
+    tokenizer: assignment1-bpe
+    params: 130683648
+    context: 2048
+    position: rope
+    attention: MHA 12 heads
+    training_data: all four sources
+    data_mixture: temperature alpha 0.7
+    tokens: 5.0e8
+    generation: as G1
+    gpu_hours_est: 2.3
+    config: phase1/configs/gpt_mha_s.yaml
+    run: runs/gpt_mha_s
+    prediction: submissions/A3_gpt_mha_s/prediction.json
+    zip: submissions/A3_gpt_mha_s/submission.zip
+    scores: null
+
+  - id: D1
+    name: legalgpt_greedy
+    enabled: true
+    category: decoding
+    hypothesis: Deterministic decoding (greedy, repetition 1.15, no-repeat 4-gram) scores higher on reference-based BERTScore/ROUGE than temperature sampling for the same checkpoint.
+    source: G1 checkpoint (no training)
+    architecture: G1
+    tokenizer: assignment1-bpe
+    params: 129700608
+    context: 2048
+    position: rope
+    attention: GQA 12/4
+    training_data: G1
+    data_mixture: G1
+    tokens: 0 additional
+    generation: greedy, repetition 1.15, norepeat 4
+    gpu_hours_est: 0.3
+    config: phase1/configs/gpt_decode.yaml
+    run: runs/legalgpt
+    prediction: submissions/D1_legalgpt_greedy/prediction.json
+    zip: submissions/D1_legalgpt_greedy/submission.zip
+    scores: null
+    notes: if another family wins, repoint base/run at that model
+
+  - id: X4
+    name: legalgpt_bpe32k
+    enabled: false
+    category: tokenizer
+    hypothesis: A 32k legal-domain BPE trained on the Phase-1 split cuts tokens/word enough to beat the A1 BPE at an equal compute budget. Enable only if peek.py shows A1 at more than about 2.3 tokens/word.
+    params: 150436608
+    tokens: 2.0e9
+    gpu_hours_est: 10 (+ tokenizer training on CPU)
+    config: phase1/configs/legalbpe.yaml
+    scores: null
+
+  - id: S1
+    name: legalgpt_sc
+    enabled: true
+    category: training
+    hypothesis: The test prompts are ~98% Supreme Court (testsrc.py, confusion-corrected) while core runs trained on 10% SC. Continuing G1 for 0.4B tokens with 85% SC (15% replay) raises BERTScore over D1 (0.8358).
+    source: domain-adaptive continued pretraining (Gururangan et al. 2020); re-warm + replay (Gupta et al. 2023; Ibrahim et al. 2024)
+    initialization: G1 best.pt (trained here from scratch); fresh optimizer, re-warmed cosine 1.5e-4 -> 1.5e-5
+    params: 129700608
+    context: 2048
+    tokens: 4.0e8 additional
+    data_mixture: weights SC 0.85, acts/highcourts/tribunals 0.05 each
+    generation: greedy, repetition 1.15, norepeat 4, last checkpoint
+    config: phase1/configs/legalgpt_sc.yaml
+    run: runs/legalgpt_sc
+    prediction: submissions/S1_legalgpt_sc/prediction.json
+    zip: submissions/S1_legalgpt_sc/submission.zip
+    scores: null
+
+  - id: S2
+    name: legalhybrid_sc
+    enabled: true
+    category: training
+    hypothesis: Same adaptation for H1; tests whether the hybrid benefits from domain adaptation as much as the dense model.
+    initialization: H1 best.pt; fresh optimizer, re-warmed cosine
+    params: 130684608
+    context: 2048
+    tokens: 4.0e8 additional
+    data_mixture: weights SC 0.85, others 0.05 each
+    generation: greedy, repetition 1.15, norepeat 4, last checkpoint
+    config: phase1/configs/legalhybrid_sc.yaml
+    run: runs/legalhybrid_sc
+    prediction: submissions/S2_legalhybrid_sc/prediction.json
+    zip: submissions/S2_legalhybrid_sc/submission.zip
+    scores: null
+
+  - id: R4
+    name: hyb_attn0_s
+    enabled: true
+    category: attention
+    hypothesis: A pure Hyena stack (no attention) is clearly worse, showing attention is needed for copying names, sections and citations from the prompt.
+    params: 131995648
+    context: 2048
+    tokens: 5.0e8
+    config: phase1/configs/hyb_attn0_s.yaml
+    run: runs/hyb_attn0_s
+    scores: null
+
+  - id: P1
+    name: legalhybrid_sc70
+    enabled: true
+    category: training
+    hypothesis: More replay (30%) forgets less on acts/high courts/tribunals but gains less on Supreme Court than S2 (15%).
+    params: 130684608
+    tokens: 4.0e8 additional
+    data_mixture: weights SC 0.70, others 0.10 each
+    config: phase1/configs/legalhybrid_sc70.yaml
+    run: runs/legalhybrid_sc70
+    scores: null
+
+  - id: E1
+    name: ens_s2_z3
+    enabled: true
+    category: decoding
+    hypothesis: Averaging log-probs of two architectures (hybrid S2 + dense Z3) beats either alone; 260.4M parameters in total.
+    params: 260,385,216 (ensemble)
+    config: phase1/configs/e1_ens.yaml
+    run: runs/legalhybrid_sc
+    scores: null
+
+  - id: M1
+    name: s2_mbr8
+    enabled: true
+    category: decoding
+    hypothesis: MBR selection (ROUGE-L + 0.5 BLEU consensus over greedy + 8 samples) raises reference-based scores over greedy S2.
+    params: 130684608
+    config: phase1/configs/m1_mbr.yaml
+    run: runs/legalhybrid_sc
+    scores: null
+
+  - id: M2
+    name: ens_mbr8
+    enabled: true
+    category: decoding
+    hypothesis: Ensemble and MBR gains add up.
+    params: 260,385,216 (ensemble)
+    config: phase1/configs/m2_ensmbr.yaml
+    run: runs/legalhybrid_sc
+    scores: null
+
+  - id: W1
+    name: s2_avg
+    enabled: true
+    category: training
+    hypothesis: Averaging S2's late checkpoints gives a flatter, slightly better solution than the last checkpoint.
+    params: 130684608
+    config: phase1/configs/w1_avg.yaml
+    run: runs/legalhybrid_sc
+    scores: null
+
+  - id: S3
+    name: legalhybrid_sc2
+    enabled: true
+    category: training
+    hypothesis: A second adaptation stage (S2 + 0.4B tokens, 85/15, peak LR 1e-4) improves the hybrid further (H1 -> S2 gave +0.001).
+    params: 130684608
+    tokens: 4.0e8 additional
+    config: phase1/configs/legalhybrid_sc2.yaml
+    run: runs/legalhybrid_sc2
+    scores: null
+
+  - id: F1
+    name: pool_z3s2_lex
+    enabled: true
+    category: decoding
+    hypothesis: MBR over a larger pool (Z3 + S2, greedy + 15 epsilon-samples each) beats M2/Z6 (9-17 candidates).
+    params: 260,385,216 (two-model pool)
+    config: phase1/configs/f1_lex.yaml
+    scores: null
+
+  - id: F2
+    name: pool_z3s2_emb
+    enabled: true
+    category: decoding
+    hypothesis: A BERTScore-style utility built from our own model's hidden states targets the primary metric better than lexical overlap.
+    params: 260,385,216 (two-model pool)
+    config: phase1/configs/f2_emb.yaml
+    scores: null
+
+  - id: F3
+    name: pool_z3s2_mix
+    enabled: true
+    category: decoding
+    hypothesis: Lexical + embedding utility combines the strengths of F1 and F2.
+    params: 260,385,216 (two-model pool)
+    config: phase1/configs/f3_mix.yaml
+    scores: null
+
+  - id: Z1
+    name: selfrank
+    enabled: true
+    category: self-ranking
+    hypothesis: Preference post-training on its own samples, ranked by ROUGE-L/BLEU against official training continuations with a repetition penalty, raises BERTScore without increasing validation CE by more than 0.1 nats.
+    source: DPO (Rafailov et al. 2023), RRHF/SLiC-style ranking; strongest eligible model from the table above
+    architecture: same as the chosen base
+    tokenizer: assignment1-bpe
+    initialization: chosen base checkpoint (Phase-1 model trained here from scratch); new run directory
+    params: same as base
+    training_data: official train-split documents only (prefix 512 words, reference 128 words)
+    generation: base decoding settings
+    gpu_hours_est: 3
+    config: phase1/configs/selfrank.yaml
+    run: runs/selfrank
+    prediction: submissions/Z1_selfrank/prediction.json
+    zip: submissions/Z1_selfrank/submission.zip
+    scores: null
+    notes: always the final submission; run on S1 (fromrun=runs/legalgpt_sc, Supreme Court prefixes, greedy)
+
+  - id: Z2
+    name: selfrank_hybrid
+    enabled: true
+    category: self-ranking
+    hypothesis: Same self-ranking on S2 (LegalHybrid adapted to Supreme Court); tests whether preference post-training helps the hybrid as much as the dense model.
+    initialization: S2 last.pt; new run directory
+    params: 130684608
+    training_data: official train-split Supreme Court documents (512-word prefix, 128-word reference)
+    generation: greedy, repetition 1.15, norepeat 4
+    config: phase1/configs/selfrank_hybrid.yaml
+    run: runs/selfrank_hybrid
+    prediction: submissions/Z2_selfrank_hybrid/prediction.json
+    zip: submissions/Z2_selfrank_hybrid/submission.zip
+    scores: null
+
+  - id: Z5
+    name: selfrank_dpo_mbr8
+    enabled: true
+    category: self-ranking
+    hypothesis: MBR decoding on the self-ranked Z3 model raises its score further.
+    params: 129700608
+    config: phase1/configs/z5_mbr.yaml
+    run: runs/selfrank_dpo
+    scores: null
+
+  - id: Z6
+    name: ens_z3_s2_mbr16
+    enabled: true
+    category: self-ranking
+    hypothesis: Final submission. Self-ranked Z3 ensembled with S2, MBR over greedy + 16 samples.
+    params: 260,385,216 (ensemble)
+    config: phase1/configs/z6_ensmbr.yaml
+    run: runs/selfrank_dpo
+    scores: null
+
+  - id: Z7
+    name: pool_z3s3_mix
+    enabled: true
+    category: self-ranking
+    hypothesis: Final. Self-ranked Z3 pooled with S3, mixed-utility MBR.
+    params: 260,385,216 (two-model pool)
+    config: phase1/configs/z7_pool.yaml
+    scores: null
+
+  - id: Z8
+    name: pool64_emb
+    enabled: true
+    category: self-ranking
+    hypothesis: Doubling the MBR pool to 64 candidates (two temperatures) with the embedding utility (best of F1-F3) beats Z7.
+    params: 260,385,216 (two-model pool)
+    config: phase1/configs/z8_pool.yaml
+    scores: null
+
+  - id: Z9
+    name: pool64_qmbr
+    enabled: true
+    category: self-ranking
+    hypothesis: Adding the models' own likelihood to the consensus utility (quality-aware decoding, Fernandes et al. 2022) filters fluent-but-odd consensus picks.
+    params: 260,385,216 (two-model pool)
+    config: phase1/configs/z9_qmbr.yaml
+    scores: null
+
+  - id: Z10
+    name: pool64_mmu
+    enabled: true
+    category: self-ranking
+    hypothesis: Averaging the embedding utility over both pooled models reduces single-utility bias (Kovacs et al. 2024).
+    params: 260,385,216 (two-model pool)
+    config: phase1/configs/z10_mmu.yaml
+    scores: null
+
+  - id: Z11
+    name: selfrank_emb
+    enabled: true
+    category: self-ranking
+    hypothesis: Self-ranking with the model's own embedding F1 to the gold continuation as reward (instead of ROUGE/BLEU) aligns preference training with the BERTScore-like signal that won at decoding time.
+    initialization: S1 last.pt; existing candidate pairs re-ranked; DPO with summed log-probs
+    params: 129700608
+    config: phase1/configs/selfrank_emb.yaml
+    run: runs/selfrank_emb
+    scores: null
+
+  - id: Z12
+    name: pool64_embdpo
+    enabled: true
+    category: self-ranking
+    hypothesis: Final. MBR over the embedding-reward self-ranked model (Z11) + S3 with the embedding utility.
+    params: 260,385,216 (two-model pool)
+    config: phase1/configs/z12_pool.yaml
+    scores: null
+
+  - id: Z13
+    name: pool64_mmu_3layer
+    enabled: true
+    category: self-ranking
+    hypothesis: Final. Z10 with the embedding utility averaged over layers 10/13/16 of each model, reducing layer sensitivity.
+    params: 260,385,216 (two-model pool)
+    config: phase1/configs/z13_final.yaml
+    scores: null

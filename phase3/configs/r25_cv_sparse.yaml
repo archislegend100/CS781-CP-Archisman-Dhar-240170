@@ -1,0 +1,11 @@
+# R25: R22 (cross-fitted, per-view PCA Phase-1 features + LSA) plus a FULL sparse lexical channel: each sentence's
+# TF-IDF over all word uni/bigrams (df >= 2) enters the document tagger through a learned EmbeddingBag (word dropout
+# 0.2), trained jointly with the Phase-1 features, so cue phrases keep their identity (cf. cue-phrase features in
+# legal RR: Saravanan et al. 2008; Bhattacharya et al. 2019). OOF-calibrated as R18.
+base: r22_cv_pca.yaml
+id: R25
+name: rr_cv_sparse
+seq:
+  sparse: true
+  mindf: 2
+  wdrop: 0.2

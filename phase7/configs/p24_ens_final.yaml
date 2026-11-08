@@ -1,0 +1,6 @@
+# P24: final ensemble of all cross-fitted rankers, including those with the MaxSim-trained retrievers (P18, P20).
+base: p23_ens.yaml
+id: P24
+name: pcr_ens_final
+rr:
+  ensruns: [runs/pcr/pcr_ltr3, runs/pcr/pcr_ltr3b, runs/pcr/pcr_ltr_var1, runs/pcr/pcr_ltr_var2, runs/pcr/pcr_ltr4, runs/pcr/pcr_ltr5]

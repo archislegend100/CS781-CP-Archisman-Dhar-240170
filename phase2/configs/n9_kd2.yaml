@@ -1,0 +1,6 @@
+# N9: distillation from the stronger full-fine-tuned teacher N7 into the 8-layer LegalGPT student.
+base: n6_kd.yaml
+id: N9
+name: ner_kd2_student
+ner:
+  kd: {teacher: runs/ner/ner_gpt_full, T: 2.0, alpha: 0.5, unlabeled: 2000}

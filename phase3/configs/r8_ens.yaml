@@ -1,0 +1,8 @@
+# R8: ensemble of the context models R1-R6 (mean sentence probabilities, averaged CRF transitions) with the CRF
+# transition scale and per-label decision biases tuned for macro-F1 on the official dev set (Lipton et al. 2014).
+base: base.yaml
+id: R8
+name: rr_ens
+ens:
+  runs: [runs/rr/rr_gpt_lorma, runs/rr/rr_hyb_rslora, runs/rr/rr_long_qlora, runs/rr/rr_seq_adalora, runs/rr/rr_gpt_full, runs/rr/rr_gpt_ia3]
+  passes: 2

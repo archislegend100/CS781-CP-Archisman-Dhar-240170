@@ -1,0 +1,12 @@
+# F2: MBR over pooled Z3 + S2 candidates, BERTScore-style utility on Z3 hidden states.
+base: legalgpt.yaml
+notrain: true
+id: F2
+subname: pool_z3s2_emb
+pool:
+  tags: [z3, s2]
+  wr: 0.0
+  wb: 0.0
+  we: 1.0
+  embrun: runs/selfrank_dpo
+  embckpt: best

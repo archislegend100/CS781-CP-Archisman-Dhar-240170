@@ -1,0 +1,8 @@
+# L11 (ablation of head + loss): L1 with attention/mean pooling + a linear multi-label layer and BCE (capped pos_weight).
+base: l1_gpt_lorma.yaml
+id: L11
+name: lsi_gpt_lorma_pool_bce
+lsi:
+  head: pool
+  loss: bce
+  trainprobs: false

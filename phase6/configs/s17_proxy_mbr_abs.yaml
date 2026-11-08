@@ -1,0 +1,14 @@
+# S17 (abstractive-core variant of S15): hybrid on the S8 MBR summaries tuned on a local BERTScore proxy (greedy-matching F1 of token states of the frozen Phase-1 LegalGPT-SC,
+# layers 10/13/16, as our Phase-1 embedding utility) instead of ROUGE: faithfulness filter on generated sentences (tau),
+# fraction of generated text kept, summary-guided extractive fill to the word budget.
+base: base.yaml
+id: S17
+name: sm_proxy_mbr_abs
+hyb:
+  fromrun: sm_mbr
+  source: summaries
+  lengrid: [0.75, 1.0, 1.25]
+  taugrid: [0.0, 0.5, 0.7]
+  fracgrid: [0.25, 0.5, 0.75, 1.0]   # at least a quarter of the summary is generated (abstractive core kept)
+  posweight: 0.2
+proxy: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last, layers: [10, 13, 16], seg: 1024, maxtok: 3072}

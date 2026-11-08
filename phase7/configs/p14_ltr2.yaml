@@ -1,0 +1,11 @@
+# P14: cross-fitted LTR (as P12) over P13's signals (with the P11 retriever).
+base: p13_rerank2.yaml
+id: P14
+name: pcr_ltr2
+rr:
+  p9meta: submissions/P13_pcr_rerank2/meta.json
+  depth: 100
+  seeds: [1, 2, 3]
+  epochs: [20, 40, 80]
+  hid: [32, 64]
+  wd: [1.0e-3, 1.0e-2]

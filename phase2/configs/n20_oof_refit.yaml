@@ -1,0 +1,8 @@
+# N20: N19's OOF-chosen decisions applied to a larger test ensemble: the 4 fold models + LoRMA+ refits on all 70 docs
+# (2 seeds) + hybrid LoRA refit on all 70 docs. Still two frozen Phase-1 backbones, so the deployed size stays < 300M.
+base: n19_oof.yaml
+id: N20
+name: ner_oof_refit
+oof:
+  test: [runs/ner/ner_gpt_lorma_f1, runs/ner/ner_gpt_lorma_f2, runs/ner/ner_hyb_lora_f1, runs/ner/ner_hyb_lora_f2,
+         runs/ner/ner_gpt_lorma_all, runs/ner/ner_gpt_lorma_all_s2, runs/ner/ner_hyb_lora_all]

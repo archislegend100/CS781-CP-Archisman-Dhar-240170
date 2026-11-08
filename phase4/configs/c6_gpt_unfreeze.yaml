@@ -1,0 +1,11 @@
+# C6: LegalGPT-SC (S1) with gradual unfreezing + discriminative learning rates (ULMFiT, Howard & Ruder 2018): all blocks
+# frozen at the start, the top ceil(f * 20) opened as training proceeds (all open at 50%), lr * 0.85^depth-from-top.
+base: base.yaml
+id: C6
+name: cj_gpt_unfreeze
+cj:
+  method: unfreeze
+  lr: 5.0e-5
+  lrdecay: 0.85
+  unfreezeat: 0.5
+  ckpt: true

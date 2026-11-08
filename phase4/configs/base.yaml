@@ -1,0 +1,50 @@
+# Phase 4 (CJPE, binary) defaults. Backbones are the trained Phase-1 checkpoints; nothing external is loaded.
+seed: 1234
+evaluator: evaluation_script/evaluate_phase4.py
+cj:
+  repo: Exploration-Lab/CS-781-Capstone
+  root: data/phase4
+  files:
+    train: Phase_4_CJPE/Train/train.json
+    dev: Phase_4_CJPE/Train/dev.json
+    test: Phase_4_CJPE/Test/test.json
+  tokdir: runs/cj/tok
+  notest: false         # as submitted (C1-C27 predate the filter); true drops train/dev cases that also occur in test
+  workers: 32
+  backbone: {config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+  window: 2048          # tokens read by the fine-tuned models
+  take: last            # last | first | firstlast (ILDC: the end of a judgment is the most predictive)
+  method: lorma
+  unmask: all
+  rank: 8
+  alpha: 8
+  targets: [q, kv, o, up, down, inp, out]
+  bottleneck: 64
+  partial: 8
+  drop: 0.1
+  hdrop: 0.1
+  ckpt: false
+  cw: 0.5               # class weights (n / 2 n_c)^cw
+  lr: 5.0e-4
+  headlr: 1.0e-3
+  epochs: 2
+  batch: 4
+  accum: 4
+  evalbatch: 16
+  warmup: 0.06
+  wd: 0.01
+  clip: 1.0
+  precision: bf16
+  trainprobs: true      # also score the training docs (distillation teacher)
+  kd: {T: 2.0, alpha: 0.5}
+feats:
+  out: runs/cj/feats
+  chunk: 512
+  maxchunks: 64
+  depths: [0.75]
+  batch: 64
+  backbones:
+    - {name: s1, config: phase1/configs/legalgpt_sc.yaml, run: runs/legalgpt_sc, ckpt: last}
+    - {name: s3, config: phase1/configs/legalhybrid_sc2.yaml, run: runs/legalhybrid_sc2, ckpt: last}
+    - {name: l1, config: phase1/configs/longlegal.yaml, run: runs/longlegal, ckpt: best}
+    - {name: q1, config: phase1/configs/legalseq.yaml, run: runs/legalseq, ckpt: best}

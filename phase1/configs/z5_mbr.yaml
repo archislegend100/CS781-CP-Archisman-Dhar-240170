@@ -1,0 +1,12 @@
+# Z5 (self-ranking family): Z3's self-ranked checkpoint decoded with MBR over greedy + 8 samples.
+base: z3_selfrank_dpo.yaml
+id: Z5
+name: selfrank_dpo
+subname: selfrank_dpo_mbr8
+notrain: true
+generation:
+  mode: greedy
+  repetition: 1.15
+  norepeat: 4
+  ckpt: best
+  mbr: 8

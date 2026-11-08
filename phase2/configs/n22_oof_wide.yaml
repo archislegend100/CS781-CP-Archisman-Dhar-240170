@@ -1,0 +1,12 @@
+# N22: wide bagged OOF system. Out-of-fold predictions now average 5 models per doc (LoRMA+ x2 seeds and LoRA on
+# S1, hybrid LoRA x2 seeds on S3); test = all 10 fold models + 4 all-docs refits. Every member is a PEFT module on
+# one of two frozen Phase-1 backbones (S1, S3). Bias, confidence thresholds and rules chosen out-of-fold as N21.
+base: n21_oof_conf.yaml
+id: N22
+name: ner_oof_wide
+oof:
+  fold1: [runs/ner/ner_gpt_lorma_f1, runs/ner/ner_gpt_lorma_s2_f1, runs/ner/ner_gpt_lora_f1, runs/ner/ner_hyb_lora_f1, runs/ner/ner_hyb_lora_s2_f1]
+  fold2: [runs/ner/ner_gpt_lorma_f2, runs/ner/ner_gpt_lorma_s2_f2, runs/ner/ner_gpt_lora_f2, runs/ner/ner_hyb_lora_f2, runs/ner/ner_hyb_lora_s2_f2]
+  test: [runs/ner/ner_gpt_lorma_f1, runs/ner/ner_gpt_lorma_s2_f1, runs/ner/ner_gpt_lora_f1, runs/ner/ner_hyb_lora_f1, runs/ner/ner_hyb_lora_s2_f1,
+         runs/ner/ner_gpt_lorma_f2, runs/ner/ner_gpt_lorma_s2_f2, runs/ner/ner_gpt_lora_f2, runs/ner/ner_hyb_lora_f2, runs/ner/ner_hyb_lora_s2_f2,
+         runs/ner/ner_gpt_lorma_all, runs/ner/ner_gpt_lorma_all_s2, runs/ner/ner_gpt_lora_all, runs/ner/ner_hyb_lora_all]

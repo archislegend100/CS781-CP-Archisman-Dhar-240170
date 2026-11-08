@@ -1,0 +1,8 @@
+# C2: LegalHybrid-SC (S3) + Houlsby bottleneck adapters (64) after every mixer / attention / FFN, last 2048 tokens.
+base: base.yaml
+id: C2
+name: cj_hyb_adapter
+cj:
+  backbone: {config: phase1/configs/legalhybrid_sc2.yaml, run: runs/legalhybrid_sc2, ckpt: last}
+  method: adapter
+  lr: 5.0e-4

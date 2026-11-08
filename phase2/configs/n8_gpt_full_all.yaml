@@ -1,0 +1,6 @@
+# N8: N7 retrained on all 70 training docs (no held-out docs) for N7's best epoch count (set by phase2b.sh).
+base: n7_gpt_full.yaml
+id: N8
+name: ner_gpt_full_all
+ner:
+  valdocs: 0

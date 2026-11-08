@@ -1,0 +1,5 @@
+# S1: LegalGPT-SC + LoRMA+ (compulsory; r = alpha = 16 on all projections), chunk-level summarization with
+# sentence-aligned chunk targets, causal decoder kept causal.
+base: base.yaml
+id: S1
+name: sm_gpt_lorma

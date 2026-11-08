@@ -1,0 +1,10 @@
+# P7: knowledge distillation -- student = first 8 of 20 LegalGPT-SC blocks (~54M), fully fine-tuned on
+# alpha * InfoNCE + (1 - alpha) * KL(teacher similarity distribution over the batch candidates || student); teacher = P1.
+base: base.yaml
+id: P7
+name: pcr_kd_student
+pcr:
+  method: kd
+  layers: 8
+  lr: 1.0e-4
+  kd: {teacher: runs/pcr/pcr_gpt_lorma, T: 1.0, alpha: 0.5}

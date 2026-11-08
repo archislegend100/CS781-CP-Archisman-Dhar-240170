@@ -1,0 +1,8 @@
+# Base for C26's fold runs: LegalHybrid-SC (S3), full fine-tuning, last 2048 tokens.
+base: c2_hyb_adapter.yaml
+id: C26B
+name: cj_hyb_full
+cj:
+  method: full
+  lr: 2.0e-5
+  ckpt: true

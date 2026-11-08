@@ -1,0 +1,7 @@
+# P27: final ensemble of the cross-fitted rankers and the cross-encoder run (weights / fusion type chosen on dev).
+base: p23_ens.yaml
+id: P27
+name: pcr_ens_ce
+rr:
+  ensruns: [runs/pcr/pcr_ltr_var1, runs/pcr/pcr_ltr3b, runs/pcr/pcr_ltr_var2, runs/pcr/pcr_ltr4, runs/pcr/pcr_ltr5,
+            runs/pcr/pcr_ce, runs/pcr/pcr_ltr_ce]

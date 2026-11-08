@@ -1,0 +1,10 @@
+# N16: 2-fold cross-validated LoRMA+ ensemble: the fold1- and fold2-trained models (each selected on a full held-out
+# fold) averaged at the token level; APP consistency kept from N11's held-out finding. 263.8M parameters.
+base: n11_ens.yaml
+id: N16
+name: ner_lorma_cv
+ens:
+  fixed: true
+  runs: [runs/ner/ner_gpt_lorma_f1, runs/ner/ner_gpt_lorma_f2]
+  consistency: [APP]
+  rolefix: false

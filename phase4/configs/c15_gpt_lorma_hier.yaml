@@ -1,0 +1,14 @@
+# C15: end-to-end hierarchical fine-tuning (Dai et al., Findings EMNLP 2022; Pappagari et al. 2019): LegalGPT-SC + LoRMA+;
+# the last 3 windows of 1536 tokens (4608 tokens, evenly overlapping on shorter judgments) share the fine-tuned encoder;
+# window vectors + window-position embedding (from the end) -> transformer layer across windows -> attention pooling.
+base: c1_gpt_lorma.yaml
+id: C15
+name: cj_gpt_lorma_hier
+cj:
+  window: 1536
+  nwin: 3
+  batch: 2
+  accum: 8
+  evalbatch: 6
+  ckpt: true
+  trainprobs: false

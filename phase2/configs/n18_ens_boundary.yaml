@@ -1,0 +1,10 @@
+# N18: ensemble selection over all held-out runs (incl. IA3 / prompt / LoRMA-pi) + role-cue fix + learned boundary
+# repair + document-level consistency; each post-processing step per label only if it helps on the held-out docs.
+base: n12_ens_rules.yaml
+id: N18
+name: ner_ens_boundary
+ens:
+  boundary: true
+  runs: [runs/ner/ner_gpt_lorma, runs/ner/ner_hyb_lora, runs/ner/ner_gpt_full, runs/ner/ner_kd_student,
+         runs/ner/ner_long_adapter, runs/ner/ner_kd2_student, runs/ner/ner_gpt_ia3, runs/ner/ner_gpt_lormapi,
+         runs/ner/ner_gpt_prompt]

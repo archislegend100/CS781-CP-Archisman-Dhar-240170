@@ -1,0 +1,9 @@
+# N17: 2-fold cross-validated LegalHybrid + LoRA ensemble (as N16). 268.8M parameters.
+base: n11_ens.yaml
+id: N17
+name: ner_hyb_cv
+ens:
+  fixed: true
+  runs: [runs/ner/ner_hyb_lora_f1, runs/ner/ner_hyb_lora_f2]
+  consistency: [APP]
+  rolefix: false

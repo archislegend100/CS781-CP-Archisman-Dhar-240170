@@ -1,0 +1,19 @@
+# N19: out-of-fold calibrated system. Each training doc is predicted by the 2-fold models trained on the other fold
+# (LoRMA+ on S1 and LoRA on S3, token-probability mean), so all 70 docs give honest predictions. On them we choose:
+# per-label decision biases on the B/I scores (macro-F1 thresholding: rare labels are worth 1/12 each), the role-cue
+# APP/RESP fix, learned boundary repair, a training-gold gazetteer and document consistency (each per label, kept
+# only if OOF F1 rises). Trim rules, boundary statistics and the gazetteer are rebuilt from the other fold for OOF
+# docs and from all 70 docs for test. Test ensemble = the same 4 fold models (one frozen S1 + one frozen S3 backbone
+# shared by the PEFT members).
+base: n11_ens.yaml
+id: N19
+name: ner_oof
+oof:
+  fold1: [runs/ner/ner_gpt_lorma_f1, runs/ner/ner_hyb_lora_f1]
+  fold2: [runs/ner/ner_gpt_lorma_f2, runs/ner/ner_hyb_lora_f2]
+  test: [runs/ner/ner_gpt_lorma_f1, runs/ner/ner_gpt_lorma_f2, runs/ner/ner_hyb_lora_f1, runs/ner/ner_hyb_lora_f2]
+  grid: [-3.0, -2.0, -1.0, -0.5, 0.5, 1.0, 2.0, 3.0]
+  passes: 2
+  mingain: 0.003
+  steps: [rolefix, boundary, gazetteer, consistency]
+  workers: 16

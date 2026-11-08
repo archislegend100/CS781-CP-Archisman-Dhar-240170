@@ -1,0 +1,8 @@
+# S3: second Supreme-Court adaptation stage for the hybrid: S2 -> +0.4B tokens (85/15), re-warmed to 1e-4.
+base: legalhybrid_sc.yaml
+id: S3
+name: legalhybrid_sc2
+train:
+  init: runs/legalhybrid_sc/ckpt/last.pt
+  lr: 1.0e-4
+  minlr: 1.0e-5

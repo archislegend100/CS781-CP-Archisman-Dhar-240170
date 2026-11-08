@@ -1,0 +1,12 @@
+# P15: cross-fitted LTR (P14) + chunk-level MaxSim views (P11, P5 retrievers) + query-graph relevance propagation + TF-IDF
+# trigram view; base re-ranker P13.
+base: p14_ltr2.yaml
+id: P15
+name: pcr_ltr3
+rr:
+  p9meta: submissions/P13_pcr_rerank2/meta.json
+  chunkruns: [runs/pcr/pcr_gpt_lorma2, runs/pcr/pcr_gpt_full]
+  maxchunks: 16
+  qk: 10
+  depth: 100
+  seeds: [1, 2, 3, 4, 5]

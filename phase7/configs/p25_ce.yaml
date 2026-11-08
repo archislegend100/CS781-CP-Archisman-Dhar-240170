@@ -1,0 +1,24 @@
+# P25: chunk-pair cross-encoder re-ranker (LegalGPT-SC + LoRMA+ r16, causal mask removed): best 2 chunk pairs per
+# (query, candidate) chosen by the P11 retriever, [query half | EOS | candidate half] = 512 tokens, max over pairs;
+# localized contrastive estimation with 7 hard negatives (fused BM25 + dense, train split); re-scores the top-50 of P21.
+base: base.yaml
+id: P25
+name: pcr_ce
+pcr:
+  rank: 16
+  alpha: 16
+  lr: 3.0e-4
+  headlr: 1.0e-3
+  epochs: 2
+ce:
+  selector: runs/pcr/pcr_gpt_lorma2
+  firststage: runs/pcr/pcr_ltr_var1
+  maxchunks: 8
+  hardk: 50
+  npairs: 2
+  seqlen: 512
+  chunkw: 512
+  groups: 2
+  nneg: 7
+  topk: 50
+  evals: 4

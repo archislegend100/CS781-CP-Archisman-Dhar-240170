@@ -1,0 +1,9 @@
+# R15: calibration ensemble with the same structure as R17 (document tagger + R1/R2/R3); its dev-tuned weights and
+# biases are reused by R17, whose members are all refit on train + dev.
+base: base.yaml
+id: R15
+name: rr_ens4
+ens:
+  runs: [runs/rr/rr_seq_wide, runs/rr/rr_gpt_lorma, runs/rr/rr_hyb_rslora, runs/rr/rr_long_qlora]
+  tuneweights: true
+  passes: 2

@@ -1,0 +1,6 @@
+# N20 member: N2's LoRMA+ setup refit on all 70 training docs (epoch count = mean best epoch of the fold runs).
+base: n2_gpt_lorma.yaml
+id: N201
+name: ner_gpt_lorma_all
+ner:
+  valdocs: 0

@@ -1,0 +1,13 @@
+# C10: knowledge distillation (Hinton et al. 2015): teacher = the C9 ensemble (eight Phase-1-based models), student = the
+# first 8 of 20 LegalGPT-SC blocks (~54M), last 2048 tokens, L = alpha * CE + (1 - alpha) * T^2 * KL(teacher || student).
+base: base.yaml
+id: C10
+name: cj_kd_student
+cj:
+  method: kd
+  layers: 8
+  lr: 1.0e-4
+  kd: {teacher: runs/cj/teacher.pt, T: 2.0, alpha: 0.5}
+teach:
+  fromrun: cj_ens
+  out: runs/cj/teacher.pt

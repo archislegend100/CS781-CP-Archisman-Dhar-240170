@@ -1,0 +1,7 @@
+# S9 (ablation): S1's model summarising only the FIRST chunk of each judgment -> how much does covering every chunk add?
+base: s1_gpt_lorma.yaml
+id: S9
+name: sm_gpt_lorma_leadonly
+sm:
+  fromrun: sm_gpt_lorma
+  leadonly: true

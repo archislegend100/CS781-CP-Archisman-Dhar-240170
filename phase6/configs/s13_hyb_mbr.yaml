@@ -1,0 +1,13 @@
+# S13: abstract-then-extract fill on the S8 MBR summaries: generated summary kept as the backbone, topped up to a held-out-tuned word budget
+# with the most salient document sentences (overlap with the generated summary + opening/closing position prior), in
+# document order, trigram-blocked. No new training or generation (rebuilt from the saved outputs).
+base: base.yaml
+id: S13
+name: sm_hybrid_mbr
+hyb:
+  fromrun: sm_mbr
+  source: summaries
+  lengrid: [1.0, 1.5, 2.0, 2.5, 3.0, 4.0]
+  posgrid: [0.0, 0.2]
+  minwords: 80
+  maxwords: 2000

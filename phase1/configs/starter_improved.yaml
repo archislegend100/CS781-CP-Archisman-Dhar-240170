@@ -1,0 +1,9 @@
+# BASE-2: BASE-1 plus one change: train on all four sources with temperature mixing (alpha 0.7)
+# instead of Supreme Court only. Same model, tokens, schedule and decoding.
+base: starter_bpe.yaml
+id: B2
+name: starter_improved
+data:
+  sources: [acts, highcourts, supremecourt, tribunals]
+  mixing: temperature
+  alpha: 0.7
